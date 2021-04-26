@@ -14,6 +14,7 @@
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
 </head>
 
@@ -96,7 +97,7 @@
                     <input id="file" type="file" class="form-control d-none">
                 </div>
                 <div class="row mt-5 ">
-                    <button class="btn-general btn mx-auto">Guardar sesión</button>
+                    <button class="btn-general btn ">Editar sesión</button>
                 </div>
             </div>
         </div>
@@ -136,93 +137,6 @@
 
 </html>
 <style>
-    .span{
-        float: right;
-        position: absolute;
-        text-align: left;
-        margin-left: 95%;
-        height: 25px;
-        display: flex;
-        align-items: center;
-        z-index: 50;
-        top: 5px;
-        color: #003972;
-    }
-    .text-blue {
-        color: #003972;
-    }
-
-    .btn-general {
-        background: #003972;
-        color: white;
-        width: 250px;
-    }
-
-    .img_file {
-        width: 100px;
-    }
-
-    .files input {
-        /* outline: 2px dashed #92b0b3; */
-        outline-offset: -10px;
-        -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
-        transition: outline-offset .15s ease-in-out, background-color .15s linear;
-        padding: 120px 0px 85px 35%;
-        text-align: center !important;
-        margin: 0;
-        width: 100% !important;
-    }
-
-    .files input:focus {
-        outline: 2px dashed #92b0b3;
-        outline-offset: -10px;
-        -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
-        transition: outline-offset .15s ease-in-out, background-color .15s linear;
-        border: 1px solid #92b0b3;
-    }
-
-    .files {
-        position: relative
-    }
-
-    .files:after {
-        pointer-events: none;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        width: 50px;
-        right: 0;
-        height: 56px;
-        content: "";
-        display: block;
-        margin: 0 auto;
-        background-size: 100%;
-        background-repeat: no-repeat;
-    }
-
-    .color input {
-        background-color: #f1f1f1;
-    }
-
-    .files:before {
-        position: absolute;
-        bottom: 10px;
-        left: 0;
-        pointer-events: none;
-        width: 100%;
-        right: 0;
-        height: 57px;
-        content: " ";
-        display: block;
-        margin: 0 auto;
-
-        font-weight: 600;
-        text-transform: capitalize;
-        text-align: center;
-    }
-
-    .text_file {
-        color: #91a09dec;
-    }
+    
 
 </style>
