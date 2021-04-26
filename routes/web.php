@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/cabildos', function () {
-    return view('cabildos');
+    return view('edit-cabildos');
 });
 
 
