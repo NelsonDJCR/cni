@@ -19,3 +19,13 @@ Route::get('/', function () {
 Route::get('/cabildos', function () {
     return view('cabildos');
 });
+
+
+//--------------------------------------------------------------------------------------
+// Rutas para parametrización
+//--------------------------------------------------------------------------------------
+
+Route::get('/municipios',function()
+{
+    return view('municipios.index');
+});
