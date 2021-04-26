@@ -25,4 +25,7 @@ Route::get('/cabildos', function () {
 // Rutas para parametrización
 //--------------------------------------------------------------------------------------
 
-Route::get('/municipios','');
+Route::get('/municipios',function()
+{
+    return view('municipios.index');
+});
