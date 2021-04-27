@@ -27,5 +27,5 @@ Route::get('/cabildos', function () {
 //--------------------------------------------------------------------------------------
 
 Route::get('/municipios', function () {
-    return view('municipios.index');
+    return view('municipios_J.index');
 });
