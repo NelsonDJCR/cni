@@ -15,7 +15,8 @@ class CreateLogGestorDocumentalTable extends Migration
     {
         Schema::create('log_gestor_documental', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_documento')->nullable(); // debe ser foranea de documento
+            $table->foreignId('id_documento')->nullable()->constrained('documento')->onDelete('restrict');
+            $table->integer('estado')->default(1); // 0: inactivo, 1: activo, 2: pendiente
             $table->timestamps();
         });
     }

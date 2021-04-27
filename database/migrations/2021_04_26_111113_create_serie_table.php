@@ -17,7 +17,7 @@ class CreateSerieTable extends Migration
             $table->id();
             $table->string('num_serie')->nullable();
             $table->string('nombre')->nullable();
-            $table->boolean('estado')->default(1);
+            $table->integer('estado')->default(1); // 0: inactivo, 1: activo, 2: pendiente
             $table->timestamps();
         });
     }
