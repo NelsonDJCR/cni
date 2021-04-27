@@ -15,13 +15,13 @@ class CreateCabildoAbiertoTable extends Migration
     {
         Schema::create('cabildo_abierto', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_departamento')->nullable(); // debe ser foranea de depa
-            $table->integer('id_municipio')->nullable(); // debe ser foranea de muni
+            $table->foreignId('dep_id')->nullable()->constrained('departamento')->onDelete('restrict');
+            $table->foreignId('mun_id')->nullable()->constrained('municipio')->onDelete('restrict');
             $table->string('radicado_CNE')->nullable();
             $table->string('nombre_tema',100)->nullable();
             $table->string('description')->nullable();
             $table->date('fecha_realizacion')->nullable();
-            $table->string('estado',50)->nullable();
+            $table->integer('estado')->default(1); // 0: inactivo, 1: activo, 2: pendiente
             $table->timestamps();
         });
     }

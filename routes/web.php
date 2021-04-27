@@ -18,8 +18,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/cabildos', function () {
-    return view('edit-cabildos');
+Route::get('/edit-sesion', function () {
+    return view('sessions.edit-sesion');
+});
+Route::get('/new-sesion', function () {
+    return view('sessions.new-sesion');
+});
+Route::get('/list-cabildos', function () {
+    return view('sessions.report');
 });
 
 
