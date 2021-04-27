@@ -86,7 +86,7 @@
                                 <img class="img_file mx-auto d-block" src="{{ asset('img/icons/file.svg') }}" alt="">
                             </div>
                             <div class="row mt-1 mb-5 ">
-                                <p class="text_file text-center">Agregar Documentos</p>
+                                <p class="text_file text-center">Igresa aquí tus documentos  .pdf .png .jpg</p>
                             </div>
                         </div>
                     </div>
