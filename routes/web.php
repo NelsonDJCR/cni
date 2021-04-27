@@ -27,10 +27,8 @@ Route::get('/cabildos', function () {
 // Rutas para parametrización
 //--------------------------------------------------------------------------------------
 
-Route::get('/municipios', function () {
-    return view('municipios_J.index');
-});
+Route::get('/municipios',[MunicipioController::class, 'index']);
 
 //  Route::view('/municipio', [MunicipioController::class]);
 
-Route::resource("municipio", [MunicipioController::class])->parameters(["municipios"=>"municipio"]);
+// Route::resources("municipio", [MunicipioController::class]);

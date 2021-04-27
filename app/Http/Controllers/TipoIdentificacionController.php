@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Municipio;
+use App\Models\TipoIdentificacion;
 use Illuminate\Http\Request;
 
-class MunicipioController extends Controller
+class TipoIdentificacionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,14 +14,7 @@ class MunicipioController extends Controller
      */
     public function index()
     {
-        // $municipios = Municipio::where('estado',1);
-        $municipios = Municipio::all();
-        foreach($municipios as $row):
-            // $row->created_at->format('d-m-Y');
-        endforeach;
-        // return $municipios;
-        return view("municipios_J.index")
-        ->with('municipios',$municipios);
+        //
     }
 
     /**
@@ -48,10 +41,10 @@ class MunicipioController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\TipoIdentificacion  $tipoIdentificacion
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(TipoIdentificacion $tipoIdentificacion)
     {
         //
     }
@@ -59,10 +52,10 @@ class MunicipioController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\TipoIdentificacion  $tipoIdentificacion
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(TipoIdentificacion $tipoIdentificacion)
     {
         //
     }
@@ -71,10 +64,10 @@ class MunicipioController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\TipoIdentificacion  $tipoIdentificacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, TipoIdentificacion $tipoIdentificacion)
     {
         //
     }
@@ -82,10 +75,10 @@ class MunicipioController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\TipoIdentificacion  $tipoIdentificacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(TipoIdentificacion $tipoIdentificacion)
     {
         //
     }

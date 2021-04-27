@@ -63,6 +63,7 @@
                 <th>Fecha registro</th>
             </thead>
             <tbody>
+                @foreach ($municipios as $row)
                 <tr>
                     <td class="aling_btn_options">
                         <button type="button" class="btn update_parameterization">
@@ -72,9 +73,10 @@
                             <i class="fas fa-trash"></i>
                         </button>
                     </td>
-                    <td>Municipio de ejemplo</td>
-                    <td>01-02-2021</td>
+                    <td>{{ $row->nombre }}</td>
+                    <td>{{ $row->created_at }}</td>
                 </tr>
+                @endforeach
                 <tr class="table-light">
                     <td class="aling_btn_options">
                         <button type="button" class="btn update_parameterization">
