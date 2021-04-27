@@ -17,7 +17,7 @@ class CreateCabildoSoporteTable extends Migration
             $table->id();
             $table->foreignId('id_cabildo')->nullable()->constrained('cabildo_abierto')->onDelete('restrict');
             $table->foreignId('id_documento')->nullable()->constrained('documento')->onDelete('restrict');
-            $table->integer('estado')->default(1); // 0: inactivo, 1: activo, 2: pendiente
+            $table->integer('estado')->default(1); // 0: inactivo, 1: activo, 2: pendiente, //3 Eliminado
             $table->timestamps();
         });
     }

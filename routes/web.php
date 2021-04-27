@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\MunicipioController;
+use App\Models\Departamento;
 use Illuminate\Support\Facades\Route;
 
 
@@ -30,9 +32,26 @@ Route::get('/list-cabildos', function () {
 
 
 //--------------------------------------------------------------------------------------
-// Rutas para parametrización
+// Rutas para municipios
 //--------------------------------------------------------------------------------------
 
 Route::get('/municipios',[MunicipioController::class, 'index']);
 Route::post('modal_eliminar_municipio',[MunicipioController::class,'modal_eliminar_municipio'])->name('modal_eliminar_municipio');
 Route::post('eliminar_municipio',[MunicipioController::class,'destroy'])->name('municipio.destroy');
+Route::post('/modal_crear_municipio',[MunicipioController::class,'modal_crear_municipio'])->name('modal_crear_municipio');
+Route::post('/crear_municipio',[MunicipioController::class,'store'])->name('municipío.store');
+Route::post('/editar_municipio',[MunicipioController::class, 'edit'])->name('municipio.edit');
+Route::post('/update_municipio',[MunicipioController::class, 'update'])->name('municipio.update');
+
+
+//--------------------------------------------------------------------------------------
+// Rutas para departamentos
+//--------------------------------------------------------------------------------------
+
+Route::get('/departamentos',[DepartamentoController::class, 'index']);
+Route::post('modal_eliminar_departamento',[DepartamentoController::class,'modal_eliminar_departamento'])->name('modal_eliminar_departamento');
+Route::post('eliminar_departamento',[DepartamentoController::class,'destroy'])->name('departamento.destroy');
+Route::post('/modal_creardepartamento',[DepartamentoController::class,'modal_crear_municipio'])->name('modal_crear_departamento');
+Route::post('/crear_departamento',[DepartamentoController::class,'store'])->name('departamento.store');
+Route::post('/editar_departamento',[DepartamentoController::class, 'edit'])->name('departamento.edit');
+Route::post('/update_departamento',[DepartamentoController::class, 'update'])->name('departamento.update');
