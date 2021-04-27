@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Departamento;
 use Illuminate\Http\Request;
 
+use function GuzzleHttp\Promise\all;
+
 class DepartamentoController extends Controller
 {
     /**
@@ -14,7 +16,9 @@ class DepartamentoController extends Controller
      */
     public function index()
     {
-        //
+        $departamentos = Departamento::where('estado', 1)->get();
+        return view('departamentos_J.index')
+            ->with('departamentos', $departamentos);
     }
 
     /**
@@ -35,7 +39,15 @@ class DepartamentoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $departamento = new Departamento();
+        $departamento->nombre = $request->nombre;
+        $departamento->usuario_creador = 1;
+        if ($departamento->save()) :
+            $departamento = Departamento::find($departamento->dep_id);
+            return response()->json(['status' => 200, 'msg' => 'municipio creado con éxito', 'tabla' => $departamento]);
+        else :
+            return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
+        endif;
     }
 
     /**
@@ -55,9 +67,10 @@ class DepartamentoController extends Controller
      * @param  \App\Models\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function edit(Departamento $departamento)
+    public function edit(Request $request)
     {
-        //
+        $departamento = Departamento::find($request->id);
+        return response()->json(['status' => 200, 'departamento' => $departamento]);
     }
 
     /**
@@ -67,9 +80,16 @@ class DepartamentoController extends Controller
      * @param  \App\Models\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Departamento $departamento)
+    public function update(Request $request)
     {
-        //
+        // return response()->json(['msg' => $request->all()]);
+        $departamento = Departamento::find($request->departamento_id);
+        $departamento->nombre = $request->nombre_edit;
+        if($departamento->save()):
+            return response()->json(['status' => 200, 'msg' => 'editado correctamente', 'tabla' => $departamento]);
+        else:
+            return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
+        endif;
     }
 
     /**
@@ -78,8 +98,26 @@ class DepartamentoController extends Controller
      * @param  \App\Models\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Departamento $departamento)
+    public function destroy(Request $request)
     {
-        //
+        // return response()->json(['status' => 200, 'msg' => $request->all()]);
+        $id = $request->departamento_id;
+        $departamento = Departamento::find($id);
+        $departamento->estado = 3;
+        if($departamento->save()):
+            $departamentos = Departamento::where('estado',1)->get();
+            return response()->json([
+            'status' => 200,
+            'msg' => 'departamento eliminado con éxito',
+            'tabla' => $departamentos
+            ]);
+        else:
+            return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
+        endif;
     }
+
+    public function modal_eliminar_departamento(Request $request){
+        return response()->json(['id' => $request->id]);
+    }
+
 }

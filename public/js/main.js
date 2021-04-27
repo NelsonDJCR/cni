@@ -15,3 +15,22 @@ $("#add_file").click(function() {
 $('body').on('click', '.delete_file', function() {
   $(this).parent().parent().remove();
 });
+
+$(document).ready(function() {
+    $('.table_es').DataTable( {
+        "language": {
+            "lengthMenu": "Mostar _MENU_ resultados por página",
+            "zeroRecords": "Ningun resultado encontrado",
+            "info": "Página _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros disponibles",
+            "infoFiltered": "(filtrado de _MAX_ registro(s))",
+            "sSearch": "Buscar: ",
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
+        }
+    } );
+} );

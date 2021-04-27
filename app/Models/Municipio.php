@@ -10,4 +10,5 @@ class Municipio extends Model
     use HasFactory;
 
     protected $table = "municipio";
+
 }
