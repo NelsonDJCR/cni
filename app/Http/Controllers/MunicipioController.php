@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Municipio;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class MunicipioController extends Controller
 {
@@ -14,12 +15,7 @@ class MunicipioController extends Controller
      */
     public function index()
     {
-        // $municipios = Municipio::where('estado',1);
-        $municipios = Municipio::all();
-        foreach($municipios as $row):
-            // $row->created_at->format('d-m-Y');
-        endforeach;
-        // return $municipios;
+        $municipios = Municipio::where('estado',1)->get();
         return view("municipios_J.index")
         ->with('municipios',$municipios);
     }
@@ -85,8 +81,20 @@ class MunicipioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        return response()->json(['id' => $request->municipio_id]);
+    }
+
+    public function modal_eliminar_municipio(Request $request){
+        $municipio = Municipio::find($request->id);
+        $municipio->estado = 0;
+        if($municipio->save()):
+            $municipios = Municipio::where('estado',1)->get();
+            return response()->json(['status' => 200, 'msg' => 'Municipio eliminado con éxito','municipios',$municipios]);
+        else:
+            return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
+        endif;
+
     }
 }

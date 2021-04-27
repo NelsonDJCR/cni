@@ -69,7 +69,7 @@
                         <button type="button" class="btn update_parameterization">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button type="button" class="btn delete_parameterization">
+                        <button data-municipio_id="{{ $row->id }}" type="button" class="btn delete_parameterization btn_modal_eliminar">
                             <i class="fas fa-trash"></i>
                         </button>
                     </td>
@@ -129,5 +129,23 @@
         </table>
     </div>
 
+    @include('municipios_J.modals.modal_eliminar')
+
     <!-- Final de tabla responsive -->
+
+
+    <script>
+        $('body').on('click','.btn_modal_eliminar',function() {
+            $.post(
+                "{{ route('modal_eliminar_municipio') }}",{
+                    _token: "{{ csrf_token() }}",
+                    id: $(this).data('municipio_id')
+                }
+            ).done(function(data) {
+                console.log(data);
+                $('#id_municipio').val(data.id)
+                $('#modal_eliminar_municipio').modal('show')
+            })
+        })
+    </script>
 @endsection

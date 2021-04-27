@@ -34,7 +34,5 @@ Route::get('/list-cabildos', function () {
 //--------------------------------------------------------------------------------------
 
 Route::get('/municipios',[MunicipioController::class, 'index']);
-
-//  Route::view('/municipio', [MunicipioController::class]);
-
-// Route::resources("municipio", [MunicipioController::class]);
+Route::post('modal_eliminar_municipio',[MunicipioController::class,'modal_eliminar_municipio'])->name('modal_eliminar_municipio');
+Route::post('eliminar_municipio',[MunicipioController::class,'destroy'])->name('municipio.destroy');
