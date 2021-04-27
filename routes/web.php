@@ -7,7 +7,7 @@ use App\Http\Controllers\TipoDocumentoController;
 use App\Models\Departamento;
 use App\Models\TipoArchivo;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CabildosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,15 +20,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/new-sesion', [CabildosController::class,'getIndex']);
+Route::post('/saveSesion', [CabildosController::class,'save']);
+
 Route::get('/edit-sesion', function () {
     return view('sessions.edit-sesion');
 });
-Route::get('/new-sesion', function () {
-    return view('sessions.new-sesion');
-});
+
 Route::get('/report-cabildos', function () {
     return view('sessions.report');
 });
