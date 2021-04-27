@@ -29,10 +29,10 @@
             $('#crear_departamento').serialize()
         ).done(function(data) {
             if (data.status == 200) {
-                console.log(data);
+                alertas(data.msg, 'success')
                 aniadirATabla(data)
             } else {
-                alert(data.msg)
+                alertas(data.msg, 'error')
             }
         })
     })
@@ -40,7 +40,6 @@
     function aniadirATabla(data) {
         var carguetabla = ''
         let val = data['tabla']
-        let departamento = data['departamento']
         carguetabla += `<tr>
                     <td class="aling_btn_options">
                         <button type="button" class="btn update_parameterization">
@@ -51,10 +50,9 @@
                         </button>
                     </td>
                     <td>${val.nombre}</td>
-                    <td>${departamento.nombre}</td>
                     <td>${val.created_at}</td>
                 </tr>`
-        $('#tmunicipios').append(carguetabla)
+        $('#tdepartamento').append(carguetabla)
     }
 
 </script>

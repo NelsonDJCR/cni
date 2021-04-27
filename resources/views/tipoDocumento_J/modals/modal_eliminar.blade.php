@@ -32,33 +32,12 @@
         ).done(function(data) {
             console.log(data);
             if(data.status == 200){
-                alert(data.msg)
-                $('#ttipoDocumento * ').remove()
-                tabla(data)
+                alertas(data.msg,'success')
+                let row = $(`#id_tipoDocumento`).val();
+                $(`[data-row="${row}"]`).remove();
             }else{
-                // alert(data.msg)
+                alertas(data.msg, 'error')
             }
         })
       })
-
-
-
-      function tabla(data) {
-        var carguetabla = ''
-        $.each(data['tabla'], function (key, val) {
-            carguetabla += `<tr>
-                    <td class="aling_btn_options">
-                        <button type="button" class="btn update_parameterization">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button data-municipio_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                    <td>${val.nombre}</td>
-                    <td>${val.created_at}</td>
-                </tr>`
-        })
-        $('#tmunicipios').append(carguetabla)
-      }
   </script>

@@ -29,7 +29,21 @@
             "{{ route('departamento.update') }}",
             $('#editar_departamento').serialize()
         ).done(function(data) {
-            console.log(data);
+            alertas(data.msg, 'success')
+            let val = data.departamento
+            let row = $(`#id_departamento_edit`).val();
+                $(`[data-row="${row}"]`).html(`
+                <td class="aling_btn_options">
+                        <button data-municipio_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_municipio">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button data-municipio_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                    <td>${val.nombre}</td>
+                    <td>${val.created_at}</td>
+                `);
         })
     })
 

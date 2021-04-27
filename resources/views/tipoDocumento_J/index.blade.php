@@ -64,7 +64,7 @@
             </thead>
             <tbody id="ttipoDocumento">
                 @foreach ($tipoDocumento as $row)
-                <tr>
+                <tr data-row="{{$row->id}}">
                     <td class="aling_btn_options">
                         <button data-tipodocumento_id_edit="{{ $row->id }}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
                             <i class="fas fa-edit"></i>

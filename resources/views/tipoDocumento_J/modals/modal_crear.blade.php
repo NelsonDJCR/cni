@@ -29,32 +29,30 @@
             $('#crear_tipoDocumento').serialize()
         ).done(function(data) {
             if (data.status == 200) {
-                console.log(data);
+                alertas(data.msg, 'success')
                 aniadirATabla(data)
             } else {
-                alert(data.msg)
+                alertas(data.msg, 'error')
             }
         })
     })
 
     function aniadirATabla(data) {
         var carguetabla = ''
-        let val = data['tabla']
-        let departamento = data['departamento']
+        let val = data['tipo_documento']
         carguetabla += `<tr>
                     <td class="aling_btn_options">
-                        <button type="button" class="btn update_parameterization">
+                        <button data-tipodocumento_id_edit=" ${val.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button data-municipio_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
+                        <button data-tipodocumento_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
                             <i class="fas fa-trash"></i>
                         </button>
                     </td>
                     <td>${val.nombre}</td>
-                    <td>${departamento.nombre}</td>
                     <td>${val.created_at}</td>
                 </tr>`
-        $('#tmunicipios').append(carguetabla)
+        $('#ttipoDocumento').append(carguetabla)
     }
 
 </script>

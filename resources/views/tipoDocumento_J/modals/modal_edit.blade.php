@@ -1,4 +1,5 @@
-<div class="modal fade" id="modal_edit_tipoDocumento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_edit_tipoDocumento" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -29,7 +30,25 @@
             "{{ route('tipoDocumento.update') }}",
             $('#editar_tipoDocumento').serialize()
         ).done(function(data) {
-            console.log(data);
+            if (data.status == 200) {
+                alertas(data.msg, 'success')
+                let val = data.tipo_documento
+                let row = $(`#id_tipoDocumento_edit`).val()
+                $(`[data-row="${row}"]`).html(`
+                <td class="aling_btn_options">
+                        <button data-tipodocumento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button data-tipodocumento_id="${val.id} " type="button" class="btn delete_parameterization btn_modal_eliminar">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                    <td>${val.nombre}</td>
+                    <td>${val.created_at}</td>
+                `);
+            } else {
+                alertas(data.msg, 'error')
+            }
         })
     })
 

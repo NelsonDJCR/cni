@@ -60,12 +60,11 @@
             <thead>
                 <th>Opciones</th>
                 <th>Nombre</th>
-                {{-- <th>Departamento</th> --}}
                 <th>Fecha registro</th>
             </thead>
             <tbody id="tdepartamento">
                 @foreach ($departamentos as $row)
-                <tr>
+                <tr data-row="{{$row->id}}">
                     <td class="aling_btn_options">
                         <button data-departamento_id_edit="{{ $row->id }}" type="button" class="btn update_parameterization modal_editar_departamento">
                             <i class="fas fa-edit"></i>
@@ -75,7 +74,6 @@
                         </button>
                     </td>
                     <td>{{ $row->nombre }}</td>
-                    {{-- <td>{{ $row->dep_nombre }}</td> --}}
                     <td>{{ $row->created_at }}</td>
                 </tr>
                 @endforeach

@@ -34,12 +34,6 @@
                 alertas(data.msg, 'success')
                 let row = $(`#id_municipio`).val();
                 $(`[data-row="${row}"]`).remove();
-
-
-
-                // console.log($(`[data-row="${row}"]`));
-                 // $('#tmunicipios * ').remove()
-                // tabla(data)
             }else{
                 alertas(data.msg, 'error')
             }
