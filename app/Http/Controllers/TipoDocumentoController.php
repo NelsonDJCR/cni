@@ -16,8 +16,8 @@ class TipoDocumentoController extends Controller
     public function index()
     {
         $tipoDocumento = TipoDocumento::where('estado', 1)->get();
-        return view('tipo$tipoDocumento_J.index')
-            ->with('tipo$tipoDocumento', $tipoDocumento);
+        return view('tipoDocumento_J.index')
+            ->with('tipoDocumento', $tipoDocumento);
     }
 
     /**
@@ -38,7 +38,15 @@ class TipoDocumentoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tipoDocumento = new TipoDocumento();
+        $tipoDocumento->nombre = $request->nombre;
+        $tipoDocumento->usuario_creador = 1;
+        if ($tipoDocumento->save()) :
+            $tipoDocumento = TipoDocumento::find($tipoDocumento->dep_id);
+            return response()->json(['status' => 200, 'msg' => 'Documento creado con éxito', 'tabla' => $tipoDocumento]);
+        else :
+            return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
+        endif;
     }
 
     /**
@@ -58,9 +66,10 @@ class TipoDocumentoController extends Controller
      * @param  \App\Models\TipoDocumento  $tipoDocumento
      * @return \Illuminate\Http\Response
      */
-    public function edit(TipoDocumento $tipoDocumento)
+    public function edit(Request $request)
     {
-        //
+        $tipoDocumento = TipoDocumento::find($request->id);
+        return response()->json(['status' => 200, 'tipoDocumento' => $tipoDocumento]);
     }
 
     /**
@@ -70,9 +79,16 @@ class TipoDocumentoController extends Controller
      * @param  \App\Models\TipoDocumento  $tipoDocumento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TipoDocumento $tipoDocumento)
+    public function update(Request $request)
     {
-        //
+        // return response()->json(['msg' => $request->all()]);
+        $tipoDocumento = TipoDocumento::find($request->tipoDocumento_id);
+        $tipoDocumento->nombre = $request->nombre_edit;
+        if($tipoDocumento->save()):
+            return response()->json(['status' => 200, 'msg' => 'editado correctamente', 'tabla' => $tipoDocumento]);
+        else:
+            return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
+        endif;
     }
 
     /**
@@ -81,8 +97,25 @@ class TipoDocumentoController extends Controller
      * @param  \App\Models\TipoDocumento  $tipoDocumento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TipoDocumento $tipoDocumento)
+    public function destroy(Request $request)
     {
-        //
+        // return response()->json(['status' => 200, 'msg' => $request->all()]);
+        $id = $request->tipoDocumento_id;
+        $tipoDocumento = TipoDocumento::find($id);
+        $tipoDocumento->estado = 3;
+        if($tipoDocumento->save()):
+            $tipoDocumento = TipoDocumento::where('estado',1)->get();
+            return response()->json([
+            'status' => 200,
+            'msg' => 'departamento eliminado con éxito',
+            'tabla' => $tipoDocumento
+            ]);
+        else:
+            return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
+        endif;
+    }
+
+    public function modal_eliminar_tipoDocumento(Request $request){
+        return response()->json(['id' => $request->id]);
     }
 }
