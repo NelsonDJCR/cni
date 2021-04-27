@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TipoArchivo;
+use App\Models\Tipo_documento;
+use App\Models\TipoDocumento;
 use Illuminate\Http\Request;
 
-class TipoArchivoController extends Controller
+class TipoDocumentoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,9 @@ class TipoArchivoController extends Controller
      */
     public function index()
     {
-        //
+        $tipoDocumento = TipoDocumento::where('estado', 1)->get();
+        return view('tipo$tipoDocumento_J.index')
+            ->with('tipo$tipoDocumento', $tipoDocumento);
     }
 
     /**
@@ -41,10 +44,10 @@ class TipoArchivoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\TipoArchivo  $tipoArchivo
+     * @param  \App\Models\TipoDocumento  $tipoDocumento
      * @return \Illuminate\Http\Response
      */
-    public function show(TipoArchivo $tipoArchivo)
+    public function show(TipoDocumento $tipoDocumento)
     {
         //
     }
@@ -52,10 +55,10 @@ class TipoArchivoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\TipoArchivo  $tipoArchivo
+     * @param  \App\Models\TipoDocumento  $tipoDocumento
      * @return \Illuminate\Http\Response
      */
-    public function edit(TipoArchivo $tipoArchivo)
+    public function edit(TipoDocumento $tipoDocumento)
     {
         //
     }
@@ -64,10 +67,10 @@ class TipoArchivoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TipoArchivo  $tipoArchivo
+     * @param  \App\Models\TipoDocumento  $tipoDocumento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TipoArchivo $tipoArchivo)
+    public function update(Request $request, TipoDocumento $tipoDocumento)
     {
         //
     }
@@ -75,10 +78,10 @@ class TipoArchivoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\TipoArchivo  $tipoArchivo
+     * @param  \App\Models\TipoDocumento  $tipoDocumento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TipoArchivo $tipoArchivo)
+    public function destroy(TipoDocumento $tipoDocumento)
     {
         //
     }

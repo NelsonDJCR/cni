@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\MunicipioController;
+use App\Http\Controllers\TipoArchivoController;
+use App\Http\Controllers\TipoDocumentoController;
 use App\Models\Departamento;
+use App\Models\TipoArchivo;
 use Illuminate\Support\Facades\Route;
 
 
@@ -58,3 +61,16 @@ Route::post('/modal_creardepartamento',[DepartamentoController::class,'modal_cre
 Route::post('/crear_departamento',[DepartamentoController::class,'store'])->name('departamento.store');
 Route::post('/editar_departamento',[DepartamentoController::class, 'edit'])->name('departamento.edit');
 Route::post('/update_departamento',[DepartamentoController::class, 'update'])->name('departamento.update');
+
+
+//--------------------------------------------------------------------------------------
+// Rutas para tipos de documento
+//--------------------------------------------------------------------------------------
+
+Route::get('/tipos-de-documento',[TipoDocumentoController::class, 'index']);
+Route::post('modal_eliminar_departamento',[TipoDocumentoController::class,'modal_eliminar_departamento'])->name('modal_eliminar_departamento');
+Route::post('eliminar_departamento',[TipoDocumentoController::class,'destroy'])->name('departamento.destroy');
+Route::post('/modal_creardepartamento',[TipoDocumentoController::class,'modal_crear_municipio'])->name('modal_crear_departamento');
+Route::post('/crear_departamento',[TipoDocumentoController::class,'store'])->name('departamento.store');
+Route::post('/editar_departamento',[TipoDocumentoController::class, 'edit'])->name('departamento.edit');
+Route::post('/update_departamento',[TipoDocumentoController::class, 'update'])->name('departamento.update');
