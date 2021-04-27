@@ -44,24 +44,27 @@
                 <th>Fecha</th>
             </thead>
             <tbody>
-                <tr>
-                    <td class="aling_btn_options">
-                        <button type="button" class="btn update_parameterization">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button type="button" class="btn download_parameterization">
-                            <i class="fas fa-download"></i>
-                        </button>
-                        <button type="button" class="btn delete_parameterization">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                    <td>x</td>
-                    <td>x</td>
-                    <td>x</td>
-                    <td>x</td>
-                    <td>x</td>
-                </tr>
+
+                @foreach ($cabildos as $i)
+                    <tr>
+                        <td class="aling_btn_options">
+                            <a href="/edit-sesion/{{ $i->id }}" type="button" class="btn update_parameterization">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button data-id="{{ $i->id }}" type="button" class="btn download_parameterization">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button data-id="{{ $i->id }}" type="button" class="btn delete_parameterization">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                        <td>{{ $i->nombre_tema }}</td>
+                        <td>{{ $i->description }}</td>
+                        <td>{{ $i->dep_id }}</td>
+                        <td>{{ $i->mun_id }}</td>
+                        <td>{{ $i->fecha_realizacion }}</td>
+                    </tr>
+                @endforeach
 
             </tbody>
         </table>

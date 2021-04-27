@@ -23,17 +23,14 @@ use App\Http\Controllers\CabildosController;
 
 Route::get('/new-sesion', [CabildosController::class,'getIndex']);
 Route::post('/saveSesion', [CabildosController::class,'save']);
-
-Route::get('/edit-sesion', function () {
-    return view('sessions.edit-sesion');
-});
+Route::get('/edit-sesion/{id}', [CabildosController::class,'edit']);
+Route::post('/edit-sesion-document', [CabildosController::class,'editDocument']);
 
 Route::get('/report-cabildos', function () {
     return view('sessions.report');
 });
-Route::get('/list-cabildos', function () {
-    return view('sessions.list');
-});
+Route::get('/list-cabildos',[CabildosController::class,'list']);
+    
 
 
 //--------------------------------------------------------------------------------------

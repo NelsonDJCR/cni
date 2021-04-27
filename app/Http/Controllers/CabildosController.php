@@ -23,7 +23,6 @@ class CabildosController extends Controller
 
     public function save(Request $r)
     {
-        
         $rules = [
             'theme' => 'required',
             'description' => 'required',
@@ -34,13 +33,13 @@ class CabildosController extends Controller
             'type_file' => 'required|numeric',
         ];
         $messages = [
-            'theme.required'=>'El tema es requerido',
+            'theme.required' => 'El tema es requerido',
             'description.required' => 'La descripción es requerida',
             'department.required' => 'El departamento es requerido',
             'municipality.required' => 'El municipio es requerido',
             'date.required' => 'La fecha es requerida',
             'cne.required' => 'El radicado CNE es requerido',
-            'type_file.required' => 'El tipo de archivo es requerido',
+            'type_file.required' => 'El tipo de documento es requerido',
         ];
         if (!isset($r->file)) {
             return response()->json([
@@ -48,7 +47,6 @@ class CabildosController extends Controller
             ]);
         }
         $validator = Validator::make($r->all(), $rules, $messages);
-
         $e = new CabildoAbierto();
         $e->dep_id = $r->department;
         $e->mun_id = $r->municipality;
@@ -58,11 +56,13 @@ class CabildosController extends Controller
         $e->fecha_realizacion = $r->date;
         $e->save();
 
+
+        $type =  $r->type_file;
         foreach ($r->file as $i) {
             $path =  $i->store('uploads', 'public');
             $r = new Documento();
             $r->nombre = $path;
-            $r->id_tipo_documento = $r->type_file;
+            $r->id_tipo_documento = $type;
             $r->save();
 
             $x = new CabildoSoporte();
@@ -70,18 +70,6 @@ class CabildosController extends Controller
             $x->id_documento = $r->id;
             $x->save();
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
         if ($validator->fails()) {
             return response()->json(['status' => 406, 'msg' => $validator->errors()->first()]);
@@ -91,13 +79,44 @@ class CabildosController extends Controller
                 'code' => 200,
             ]);
         }
-
-
-
-
-
-
-
-        
     }
+
+    public function list()
+    {
+
+        return view('sessions.list')
+            ->with('cabildos', CabildoAbierto::all());
+    }
+
+    public function edit($id)
+    {
+        $documents = Documento::select('documento.*')
+        ->leftjoin("cabildo_soporte", "cabildo_soporte.id_documento", "documento.id")
+        ->where('cabildo_soporte.id_cabildo',$id)
+        ->where('documento.estado',1)
+        ->get();
+
+        $type_document = Documento::select('documento.id_tipo_documento','tipo_documento.nombre')
+        ->leftjoin("cabildo_soporte", "cabildo_soporte.id_documento", "documento.id")
+        ->leftjoin("tipo_documento", "tipo_documento.id", "documento.id_tipo_documento")
+        ->where('cabildo_soporte.id_cabildo',$id)
+        ->where('documento.estado',1)
+        ->first();
+
+        return view('sessions.edit-sesion')
+            ->with('type_file', TipoDocumento::all())
+            ->with('municipios', Municipio::all())
+            ->with('documents', $documents)
+            ->with('type_document', $type_document)
+            ->with('departament', Departamento::all())
+            ->with('data', CabildoAbierto::find($id));
+    }
+
+	public function editDocument(Request $r)
+	{
+        $e = Documento::find($r->id);
+        $e->estado = 3;
+        $e->save();
+
+	}
 }
