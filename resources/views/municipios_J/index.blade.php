@@ -65,7 +65,7 @@
             </thead>
             <tbody id="tmunicipios">
                 @foreach ($municipios as $row)
-                <tr>
+                <tr data-row="{{$row->id}}">
                     <td class="aling_btn_options">
                         <button data-municipio_id_edit="{{ $row->id }}" type="button" class="btn update_parameterization modal_editar_municipio">
                             <i class="fas fa-edit"></i>
@@ -116,6 +116,9 @@
             ).done(function(data) {
                 let municipio = data.municipio
                 $('#nombre_municipio_edit').val(municipio.nombre)
+                $('#message-text1 option').removeAttr('selected');
+                $(`#message-text1 option[value="${municipio.dep_id}"]`).attr('selected','selected');
+
                 $('#id_municipio_edit').val(municipio.id)
                 $('#modal_edit_municipio').modal('show')
             })
