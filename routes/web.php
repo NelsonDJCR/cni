@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\MunicipioController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +18,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/cabildos', function () {
-    return view('cabildos');
+Route::get('/edit-sesion', function () {
+    return view('sessions.edit-sesion');
+});
+Route::get('/new-sesion', function () {
+    return view('sessions.new-sesion');
+});
+Route::get('/list-cabildos', function () {
+    return view('sessions.report');
 });
 
 
@@ -25,7 +33,10 @@ Route::get('/cabildos', function () {
 // Rutas para parametrización
 //--------------------------------------------------------------------------------------
 
-Route::get('/municipios',function()
-{
-    return view('municipios.index');
+Route::get('/municipios', function () {
+    return view('municipios_J.index');
 });
+
+//  Route::view('/municipio', [MunicipioController::class]);
+
+Route::resource("municipio", [MunicipioController::class])->parameters(["municipios"=>"municipio"]);
