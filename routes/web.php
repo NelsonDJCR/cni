@@ -24,8 +24,11 @@ Route::get('/edit-sesion', function () {
 Route::get('/new-sesion', function () {
     return view('sessions.new-sesion');
 });
-Route::get('/list-cabildos', function () {
+Route::get('/report-cabildos', function () {
     return view('sessions.report');
+});
+Route::get('/list-cabildos', function () {
+    return view('sessions.list');
 });
 
 
@@ -39,4 +42,4 @@ Route::get('/municipios', function () {
 
 //  Route::view('/municipio', [MunicipioController::class]);
 
-Route::resource("municipio", [MunicipioController::class])->parameters(["municipios"=>"municipio"]);
+// Route::resource("municipio", [MunicipioController::class])->parameters(["municipios"=>"municipio"]);
