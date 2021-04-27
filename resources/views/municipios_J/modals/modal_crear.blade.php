@@ -38,8 +38,8 @@
             $('#crear_municipio').serialize()
         ).done(function(data) {
             if (data.status == 200) {
-                console.log(data);
                 aniadirATabla(data)
+                alertas(data.msg, 'success')
             } else {
                 alert(data.msg)
             }
