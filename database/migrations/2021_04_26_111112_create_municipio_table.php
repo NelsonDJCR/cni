@@ -15,9 +15,9 @@ class CreateMunicipioTable extends Migration
     {
         Schema::create('municipio', function (Blueprint $table) {
             $table->id();
-            $table->integer('dep_id')->nullable(); //foranea de departamento
+            $table->foreignId('dep_id')->nullable()->constrained('departamento')->onDelete('restrict');
             $table->string('nombre')->nullable();
-            $table->boolean('estado')->default(1);
+            $table->integer('estado')->default(1); // 0: inactivo, 1: activo, 2: pendiente
             $table->integer('usuario_creador')->nullable();
             $table->timestamps();
         });

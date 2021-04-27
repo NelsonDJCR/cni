@@ -63,18 +63,20 @@
                 <th>Fecha registro</th>
             </thead>
             <tbody>
+                @foreach ($municipios as $row)
                 <tr>
                     <td class="aling_btn_options">
                         <button type="button" class="btn update_parameterization">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button type="button" class="btn delete_parameterization">
+                        <button data-municipio_id="{{ $row->id }}" type="button" class="btn delete_parameterization btn_modal_eliminar">
                             <i class="fas fa-trash"></i>
                         </button>
                     </td>
-                    <td>Municipio de ejemplo</td>
-                    <td>01-02-2021</td>
+                    <td>{{ $row->nombre }}</td>
+                    <td>{{ $row->created_at }}</td>
                 </tr>
+                @endforeach
                 <tr class="table-light">
                     <td class="aling_btn_options">
                         <button type="button" class="btn update_parameterization">
@@ -127,5 +129,23 @@
         </table>
     </div>
 
+    @include('municipios_J.modals.modal_eliminar')
+
     <!-- Final de tabla responsive -->
+
+
+    <script>
+        $('body').on('click','.btn_modal_eliminar',function() {
+            $.post(
+                "{{ route('modal_eliminar_municipio') }}",{
+                    _token: "{{ csrf_token() }}",
+                    id: $(this).data('municipio_id')
+                }
+            ).done(function(data) {
+                console.log(data);
+                $('#id_municipio').val(data.id)
+                $('#modal_eliminar_municipio').modal('show')
+            })
+        })
+    </script>
 @endsection

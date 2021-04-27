@@ -16,7 +16,7 @@ class CreateTipoDocumentoTable extends Migration
         Schema::create('tipo_documento', function (Blueprint $table) {
             $table->id();
             $table->string('nombre',50)->nullable();
-            $table->boolean('estado')->default(1);
+            $table->integer('estado')->default(1); // 0: inactivo, 1: activo, 2: pendiente
             $table->integer('usuario_creador')->nullable();
             $table->timestamps();
         });

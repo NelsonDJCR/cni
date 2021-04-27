@@ -15,10 +15,10 @@ class CreateSubSerieTable extends Migration
     {
         Schema::create('subserie', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_serie')->nullable(); //Debe ser foranea de serie
+            $table->foreignId('id_serie')->nullable()->constrained('serie')->onDelete('restrict');
             $table->string('num_subserie')->nullable();
             $table->string('nombre')->nullable();
-            $table->boolean('estado')->default(1);
+            $table->integer('estado')->default(1); // 0: inactivo, 1: activo, 2: pendiente
             $table->timestamps();
         });
     }

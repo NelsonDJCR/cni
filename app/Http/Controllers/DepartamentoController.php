@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Municipio;
+use App\Models\Departamento;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 
-class MunicipioController extends Controller
+class DepartamentoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,7 @@ class MunicipioController extends Controller
      */
     public function index()
     {
-        $municipios = Municipio::where('estado',1)->get();
-        return view("municipios_J.index")
-        ->with('municipios',$municipios);
+        //
     }
 
     /**
@@ -44,10 +41,10 @@ class MunicipioController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Departamento $departamento)
     {
         //
     }
@@ -55,10 +52,10 @@ class MunicipioController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Departamento $departamento)
     {
         //
     }
@@ -67,10 +64,10 @@ class MunicipioController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Departamento $departamento)
     {
         //
     }
@@ -78,23 +75,11 @@ class MunicipioController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Departamento $departamento)
     {
-        return response()->json(['id' => $request->municipio_id]);
-    }
-
-    public function modal_eliminar_municipio(Request $request){
-        $municipio = Municipio::find($request->id);
-        $municipio->estado = 0;
-        if($municipio->save()):
-            $municipios = Municipio::where('estado',1)->get();
-            return response()->json(['status' => 200, 'msg' => 'Municipio eliminado con éxito','municipios',$municipios]);
-        else:
-            return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
-        endif;
-
+        //
     }
 }
