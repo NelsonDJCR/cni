@@ -66,10 +66,10 @@
                 <tr>
                     <td class="aling_btn_options">
                         <button type="button" class="btn update_parameterization">
-                            <i class="fas fa-trash"></i>
+                            <i class="fas fa-edit"></i>
                         </button>
                         <button type="button" class="btn delete_parameterization">
-                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-trash"></i>
                         </button>
                     </td>
                     <td>Municipio de ejemplo</td>
@@ -78,10 +78,10 @@
                 <tr class="table-light">
                     <td class="aling_btn_options">
                         <button type="button" class="btn update_parameterization">
-                            <i class="fas fa-trash"></i>
+                            <i class="fas fa-edit"></i>
                         </button>
                         <button type="button" class="btn delete_parameterization">
-                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-trash"></i>
                         </button>
                     </td>
                     <td>Municipio de ejemplo</td>
@@ -90,10 +90,10 @@
                 <tr>
                     <td class="aling_btn_options">
                         <button type="button" class="btn update_parameterization">
-                            <i class="fas fa-trash"></i>
+                            <i class="fas fa-edit"></i>
                         </button>
                         <button type="button" class="btn delete_parameterization">
-                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-trash"></i>
                         </button>
                     </td>
                     <td>Municipio de ejemplo</td>
@@ -102,10 +102,10 @@
                 <tr class="table-light">
                     <td class="aling_btn_options">
                         <button type="button" class="btn update_parameterization">
-                            <i class="fas fa-trash"></i>
+                            <i class="fas fa-edit"></i>
                         </button>
                         <button type="button" class="btn delete_parameterization">
-                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-trash"></i>
                         </button>
                     </td>
                     <td>Municipio de ejemplo</td>
@@ -114,11 +114,10 @@
                 <tr>
                     <td class="aling_btn_options">
                         <button type="button" class="btn update_parameterization">
-                            <i class="fab fa-500px"></i>
-                            <i class="fas fa-trash"></i>
+                            <i class="fas fa-edit"></i>
                         </button>
                         <button type="button" class="btn delete_parameterization">
-                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-trash"></i>
                         </button>
                     </td>
                     <td>Municipio de ejemplo</td>

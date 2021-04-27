@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MunicipioController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -32,7 +33,10 @@ Route::get('/list-cabildos', function () {
 // Rutas para parametrización
 //--------------------------------------------------------------------------------------
 
-Route::get('/municipios',function()
-{
-    return view('municipios.index');
+Route::get('/municipios', function () {
+    return view('municipios_J.index');
 });
+
+//  Route::view('/municipio', [MunicipioController::class]);
+
+Route::resource("municipio", [MunicipioController::class])->parameters(["municipios"=>"municipio"]);
