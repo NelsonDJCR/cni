@@ -31,11 +31,17 @@
         ).done(function(data) {
             console.log(data);
             if(data.status == 200){
-                alert(data.msg)
-                $('#tmunicipios * ').remove()
-                tabla(data)
+                alertas(data.msg, 'success')
+                let row = $(`#id_municipio`).val();
+                $(`[data-row="${row}"]`).remove();
+
+
+
+                // console.log($(`[data-row="${row}"]`));
+                 // $('#tmunicipios * ').remove()
+                // tabla(data)
             }else{
-                // alert(data.msg)
+                alertas(data.msg, 'error')
             }
         })
       })

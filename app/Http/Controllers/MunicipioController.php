@@ -103,7 +103,8 @@ class MunicipioController extends Controller
         $municipio->nombre = $request->nombre_edit;
         $municipio->dep_id = $request->dep_id_edit;
         if($municipio->save()):
-            return response()->json(['status' => 200, 'msg' => 'editado correctamente', 'tabla' => $municipio]);
+            $departamento = Departamento::find($municipio->dep_id);
+            return response()->json(['status' => 200, 'msg' => 'editado correctamente', 'municipio' => $municipio, 'departamento' => $departamento]);
         else:
             return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
         endif;
