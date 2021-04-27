@@ -19,12 +19,12 @@ $('body').on('click', '.delete_file', function() {
 $(document).ready(function() {
     $('.table_es').DataTable( {
         "language": {
-            "lengthMenu": "Mostar _MENU_ resultados por pagina",
+            "lengthMenu": "Mostar _MENU_ resultados por página",
             "zeroRecords": "Ningun resultado encontrado",
-            "info": "Pagina _PAGE_ de _PAGES_",
+            "info": "Página _PAGE_ de _PAGES_",
             "infoEmpty": "No hay registros disponibles",
             "infoFiltered": "(filtrado de _MAX_ registro(s))",
-            "sSearch": "Buscar:",
+            "sSearch": "Buscar: ",
             "paginate": {
                 "first": "Primero",
                 "last": "Ultimo",
