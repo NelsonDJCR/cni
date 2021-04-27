@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tipo_documentosssss extends Model
+class Documento extends Model
 {
     use HasFactory;
+    protected $table = 'documento';
 }

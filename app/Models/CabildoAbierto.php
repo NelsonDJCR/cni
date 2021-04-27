@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tipo_documento extends Model
+class CabildoAbierto extends Model
 {
     use HasFactory;
+    protected $table = 'cabildo_abierto';
 }

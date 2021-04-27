@@ -12,7 +12,7 @@
                         <label class="form-label">Agrege todos los documentos</label>
                     </div>
                     <div class="col-1">
-                        <button class="btn-more btn" id="add_file"><i class="fas fa-plus"></i></button>
+                        <button class="btn-more btn" id="add_file" type="button"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
                 <div class="col-12" id="box_files"></div>
