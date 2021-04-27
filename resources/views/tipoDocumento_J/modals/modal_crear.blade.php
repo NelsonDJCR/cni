@@ -1,45 +1,36 @@
-<div class="modal fade" id="modal_crear_municipio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_crear_tipoDocumento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Nuevo municipio</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Nuevo tipo de documento</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="crear_municipio">
+                <form id="crear_tipoDocumento">
                     @csrf
                     <div class="mb-3">
-                        <label for="nombre" class="col-form-label">Nombre de municipio</label>
+                        <label for="nombre" class="col-form-label">Nombre del documento</label>
                         <input type="text" class="form-control" id="nombre" name="nombre">
-                    </div>
-                    <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Departamento </label>
-                        <select name="dep_id" id="" class="form-select">
-                            <option value="">Selecciona</option>
-                            @foreach ($departamentos as $row)
-                                <option value="{{ $row->id }}">{{ $row->nombre }}</option>
-                            @endforeach
-                        </select>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary crear_municipio">Guardar</button>
+                <button type="button" class="btn btn-primary crear_tipoDocumento">Guardar</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    $('body').on('click', '.crear_municipio', function() {
+    $('body').on('click', '.crear_tipoDocumento', function() {
         $.post(
-            "{{ route('municipío.store') }}",
-            $('#crear_municipio').serialize()
+            "{{ route('tipoDocumento.store') }}",
+            $('#crear_tipoDocumento').serialize()
         ).done(function(data) {
             if (data.status == 200) {
+                console.log(data);
                 aniadirATabla(data)
-                alertas(data.msg, 'success')
             } else {
                 alert(data.msg)
             }

@@ -67,9 +67,9 @@ Route::post('/update_departamento',[DepartamentoController::class, 'update'])->n
 //--------------------------------------------------------------------------------------
 
 Route::get('/tipos-de-documento',[TipoDocumentoController::class, 'index']);
-Route::post('modal_eliminar_departamento',[TipoDocumentoController::class,'modal_eliminar_departamento'])->name('modal_eliminar_departamento');
-Route::post('eliminar_departamento',[TipoDocumentoController::class,'destroy'])->name('departamento.destroy');
-Route::post('/modal_creardepartamento',[TipoDocumentoController::class,'modal_crear_municipio'])->name('modal_crear_departamento');
-Route::post('/crear_departamento',[TipoDocumentoController::class,'store'])->name('departamento.store');
-Route::post('/editar_departamento',[TipoDocumentoController::class, 'edit'])->name('departamento.edit');
-Route::post('/update_departamento',[TipoDocumentoController::class, 'update'])->name('departamento.update');
+Route::post('modal_eliminar_tipoDocumento',[TipoDocumentoController::class,'modal_eliminar_tipoDocumento'])->name('modal_eliminar_tipoDocumento');
+Route::post('eliminar_tipoDocumento',[TipoDocumentoController::class,'destroy'])->name('tipoDocumento.destroy');
+Route::post('/modal_creartipoDocumento',[TipoDocumentoController::class,'modal_crear_municipio'])->name('modal_crear_tipoDocumento');
+Route::post('/crear_tipoDocumento',[TipoDocumentoController::class,'store'])->name('tipoDocumento.store');
+Route::post('/editar_tipoDocumento',[TipoDocumentoController::class, 'edit'])->name('tipoDocumento.edit');
+Route::post('/update_tipoDocumento',[TipoDocumentoController::class, 'update'])->name('tipoDocumento.update');
