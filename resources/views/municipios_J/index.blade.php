@@ -81,7 +81,7 @@
                             <i class="fas fa-edit"></i>
                         </button>
                         <button type="button" class="btn delete_parameterization">
-                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-trash"></i>
                         </button>
                     </td>
                     <td>Municipio de ejemplo</td>
@@ -93,7 +93,7 @@
                             <i class="fas fa-edit"></i>
                         </button>
                         <button type="button" class="btn delete_parameterization">
-                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-trash"></i>
                         </button>
                     </td>
                     <td>Municipio de ejemplo</td>
@@ -105,7 +105,7 @@
                             <i class="fas fa-edit"></i>
                         </button>
                         <button type="button" class="btn delete_parameterization">
-                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-trash"></i>
                         </button>
                     </td>
                     <td>Municipio de ejemplo</td>
@@ -117,7 +117,7 @@
                             <i class="fas fa-edit"></i>
                         </button>
                         <button type="button" class="btn delete_parameterization">
-                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-trash"></i>
                         </button>
                     </td>
                     <td>Municipio de ejemplo</td>

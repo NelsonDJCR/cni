@@ -140,11 +140,21 @@ h2 {
 .update_parameterization {
     background-color: var(--azul_claro);
     color: var(--azul_intermedio);
+    height: 35px;
+    width: 35px;
 }
 
 .delete_parameterization {
-    background-color: var(--rojo);
+    background-color: var(--rojo_claro);
     color: var(--rojo);
+    height: 35px;
+    width: 35px;
+}
+
+.aling_btn_options i{
+    position: relative;
+    right: 3px;
+    bottom: 3px;
 }
 
 .new_document {
