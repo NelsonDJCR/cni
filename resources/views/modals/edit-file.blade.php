@@ -16,16 +16,13 @@
                     </div>
                 </div>
                 <div class="col-12" id="box_files">
-
                     @foreach ($documents as $i)
                         <div class="row">
                             <div class="col-11">
                                 <input type="text" value="{{ $i->nombre }}" disabled class="form-control mb-3" />
                             </div>
                             <div class="col-1">
-                                <button type="button" data-id="{{ $i->id }}"
-                                    class="btn-delete-file btn delete_file_edit record{{ $i->id }}"><i
-                                        class="far fa-trash-alt"></i></button>
+                                <button type="button" data-id="{{ $i->id }}" class="btn-delete-file btn delete_file_edit record{{ $i->id }}"><i class="far fa-trash-alt"></i></button>
                             </div>
                         </div>
                     @endforeach
@@ -37,7 +34,6 @@
         </div>
     </div>
 </div>
-
 <script>
     $(".delete_file_edit").click(function() {
         var id = $(this).data('id');
