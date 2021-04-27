@@ -18,6 +18,9 @@ body{
 .table{
     color: var(--gris_oscuro)
 }
+.color-gray{
+    color: var(--gris_oscuro)
+}
 .title_parameterization {
     border: 1px solid var(--gris_claro);
     box-shadow: 5px 5px 9px var(--gris_claro);
@@ -155,7 +158,40 @@ h2 {
     height: 35px;
     width: 35px;
 }
-
+input[type="date"]::-webkit-calendar-picker-indicator {
+    /* background: none; */
+    z-index: 5;
+    margin-left: -15px;
+    background: none;
+    padding: 5px;
+    position: absolute;
+    width: 100%;
+}
+::-webkit-datetime-edit-year-field:not([aria-valuenow]),
+::-webkit-datetime-edit-month-field:not([aria-valuenow]),
+::-webkit-datetime-edit-day-field:not([aria-valuenow]) {
+    color: transparent;
+}
+.icon-date{
+    /* display: none; */
+    z-index: -500000;
+}
+.download_parameterization{
+    background-color: var(--amarillo_claro);
+    
+    color: var(--amarillo);
+    height: 35px;
+    width: 35px;
+}
+.download_parameterization:hover{
+    color: var(--amarillo);
+}
+.delete_parameterization:hover{
+    color: var(--rojo);
+}
+.update_parameterization:hover{
+    color: var(--azul_intermedio);
+}
 .aling_btn_options i{
     position: relative;
     right: 3px;
@@ -175,12 +211,28 @@ h2 {
     font-weight: bold;
 }
 .text-blue{
-    color: #003972;
+    color: var(--azul_oscuro);
 }
 .btn-general{
-    background: #003972;
-    color: white;
+    background: var(--azul_oscuro);
+    color: var(--blanco);
     width: 250px;
+}
+.btn-more{
+    background: var(--azul_oscuro);
+    color: var(--blanco)
+}
+.btn-more:hover{
+    background: var(--azul_oscuro);
+    color: var(--blanco)
+}
+.btn-delete-file{
+    background: var(--rojo);
+    color: var(--blanco)
+}
+.btn-delete-file:hover{
+    background: var(--rojo);
+    color: var(--blanco)
 }
 .img_file {
     width: 100px;

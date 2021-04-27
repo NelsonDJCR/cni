@@ -26,8 +26,11 @@ Route::get('/edit-sesion', function () {
 Route::get('/new-sesion', function () {
     return view('sessions.new-sesion');
 });
-Route::get('/list-cabildos', function () {
+Route::get('/report-cabildos', function () {
     return view('sessions.report');
+});
+Route::get('/list-cabildos', function () {
+    return view('sessions.list');
 });
 
 
