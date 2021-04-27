@@ -18,12 +18,13 @@
     box-shadow: 5px 5px 9px var(--gris_claro);
 }
 
-.title_parameterization h1,h2 {
+.title_parameterization h1,
+h2 {
     text-align: right;
     color: var(--azul_oscuro);
 }
 
-.aling_btn_options{
+.aling_btn_options {
     text-align: center;
 }
 
@@ -51,6 +52,7 @@
     top: 5px;
     color: var(--azul_oscuro);
 }
+
 .text-blue {
     color: var(--azul_oscuro);
 }
@@ -61,6 +63,7 @@
     width: 250px;
     margin: auto;
 }
+
 .btn-general:hover {
     color: var(--blanco);
 }
@@ -134,37 +137,37 @@
     color: #91a09dec;
 }
 
-.update_parameterization{
+.update_parameterization {
     background-color: var(--azul_claro);
     color: var(--azul_intermedio);
 }
 
-.delete_parameterization{
+.delete_parameterization {
     background-color: var(--rojo);
     color: var(--rojo);
 }
 
-.new_document{
+.new_document {
     position: initial;
 }
 
-.row select{
+.row select {
     border: 1px solid var(--gris_claro);
     border-radius: 5px;
 }
 
-.form_configure label{
+.form_configure label {
     font-weight: bold;
 }
 
-@media(min-width: 768px){
-    .new_document{
+@media(min-width: 768px) {
+    .new_document {
         position: relative;
         left: 30%;
     }
 }
 
-@media(max-width: 575px){
+@media(max-width: 575px) {
     .title_parameterization .btn-block {
         background-color: var(--amarillo);
         color: var(--blanco);
@@ -181,13 +184,14 @@
         left: 20%;
     }
 
-    .form_configure{
+    .form_configure {
         width: 80%;
         position: relative;
         left: 10%;
     }
 
-    .title_parameterization h1,h2 {
+    .title_parameterization h1,
+    h2 {
         text-align: center;
         color: var(--azul_oscuro);
     }
