@@ -68,13 +68,17 @@
                 </div>
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
                     <div class="row ">
-                        <label for="" class="form-label"><b>Tipo de archivo </b></label>
+                        <label for="" class="form-label"><b>Tipo de documento </b></label>
                         <select class="form-select" name="type_file">
                             <option value="0" selected disabled></option>
                             @foreach ($type_file as $i)
                                 <option value="{{ $i->id }}">{{ $i->nombre }}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="row mt-3">
+                        <label for="" class="form-label"><b>Radicado CNE</b></label>
+                        <input type="text" class="form-control" id="" name="cne">
                     </div>
                     <div class="row mt-5">
                         <div class="form-group files border" role="button" id="box_file">
@@ -110,17 +114,25 @@
                 success: function(data) {
 
                     if (data.code == 200) {
-                        
-                    }else{
                         Swal.fire({
-                        icon: 'error',
-                        title: data.msg,
-                        text:'Ingrese de forma correcta todos los campos'
-                    });
+                            icon: 'success',
+                            title: 'Perfecto',
+                            text: 'Los datos han sido guardados exitosamente',
+                        }).then(function() {
+                            window.location = '/list-cabildos';
+                        });
+
+                    } else {
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: data.msg,
+                            text: 'Ingrese de forma correcta todos los campos'
+                        });
                     }
 
 
-                    
+
                 }
             })
 

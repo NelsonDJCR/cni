@@ -9,7 +9,7 @@
                 </div>
                 <div class='col-12 col-md-12 col-lg-2 col-xl-2 p-2'>
                     
-                    <button class="btn btn-warning text-white w-100 mt-2 ">Nueva sesión</button>
+                    <a href="{{ url('/new-sesion') }}" class="btn btn-warning text-white w-100 mt-2 ">Nueva sesión</a href="{{ url('/list-cabildos') }}">
                 </div>
             </div>
         </div>
