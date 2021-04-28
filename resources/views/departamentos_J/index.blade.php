@@ -117,7 +117,6 @@
         })
 
         $('body').on('click','.filtrar',function() {
-            // alert('llego')
             $.post(
                 "{{ route('buscar_departamento') }}",
                 $('#buscar_departamento').serialize()

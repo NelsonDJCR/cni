@@ -19,7 +19,7 @@ class MunicipioController extends Controller
     {
         $departamentos = Departamento::where('estado', 1)->get();
         // return $departamentos;
-        $municipios = Municipio::where('estado', 1)->get();
+        // $municipios = Municipio::where('estado', 1)->get();
         $municipios = DB::table('municipio')
             ->join('departamento', 'departamento.id', '=', 'municipio.dep_id')
             ->select(
@@ -62,16 +62,7 @@ class MunicipioController extends Controller
                         $query->orwhere('municipio.nombre', 'like', "%" . $post['nombre_buscar'] . "%");
                 }
             })->get();
-
-
-        // $departamento = Departamento::where('estado', 1)
-        //     ->where(function ($query) use ($post) {
-        //         if (isset($post['nombre_buscar'])) {
-        //             if (!empty($post['nombre_buscar']))
-        //                 $query->orwhere('departamento.nombre', 'like', "%" . $post['nombre_buscar'] . "%");
-        //         }
-        //     })->get();
-        return response()->json(['status' => 200, 'municipios' => $municipios]);
+        return response()->json(['status' => 200, 'municipio' => $municipios]);
     }
 
     /**
@@ -98,7 +89,7 @@ class MunicipioController extends Controller
         $municipio->dep_id = $request->dep_id;
         if ($municipio->save()) :
             $departamento = Departamento::find($municipio->dep_id);
-            return response()->json(['status' => 200, 'msg' => 'municipio creado con éxito', 'tabla' => $municipio, 'departamento' => $departamento]);
+            return response()->json(['status' => 200, 'msg' => 'municipio creado con éxito', 'municipios' => $municipio, 'departamento' => $departamento]);
         else :
             return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
         endif;
@@ -142,7 +133,20 @@ class MunicipioController extends Controller
         $municipio->dep_id = $request->dep_id_edit;
         if ($municipio->save()) :
             $departamento = Departamento::find($municipio->dep_id);
-            return response()->json(['status' => 200, 'msg' => 'editado correctamente', 'municipio' => $municipio, 'departamento' => $departamento]);
+            $municipios = DB::table('municipio')
+                ->join('departamento', 'departamento.id', '=', 'municipio.dep_id')
+                ->select(
+                    'municipio.id',
+                    'municipio.nombre',
+                    'municipio.estado',
+                    'municipio.usuario_creador',
+                    'municipio.created_at',
+                    'municipio.dep_id',
+                    DB::raw('departamento.nombre as dep_nombre'),
+                    DB::raw('departamento.estado as dep_estado'),
+                )->where('municipio.estado', 1)
+                ->where('departamento.estado', 1)->get();
+            return response()->json(['status' => 200, 'msg' => 'editado correctamente', 'municipio' => $municipios, 'departamento' => $departamento]);
         else :
             return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
         endif;
@@ -160,11 +164,23 @@ class MunicipioController extends Controller
         $municipio = Municipio::find($id);
         $municipio->estado = 3;
         if ($municipio->save()) :
-            $municipios = Municipio::where('estado', 1)->get();
+            $municipios = DB::table('municipio')
+                ->join('departamento', 'departamento.id', '=', 'municipio.dep_id')
+                ->select(
+                    'municipio.id',
+                    'municipio.nombre',
+                    'municipio.estado',
+                    'municipio.usuario_creador',
+                    'municipio.created_at',
+                    'municipio.dep_id',
+                    DB::raw('departamento.nombre as dep_nombre'),
+                    DB::raw('departamento.estado as dep_estado'),
+                )->where('municipio.estado', 1)
+                ->where('departamento.estado', 1)->get();
             return response()->json([
                 'status' => 200,
                 'msg' => 'Municipio eliminado con éxito',
-                'tabla' => $municipios
+                'municipio' => $municipios
             ]);
         else :
             return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);

@@ -52,7 +52,7 @@
         <div class="col-2"></div>
     </div>
     <div class="container table-responsive mt-1">
-        <table class="table table-bordered table_es">
+        <table class="table table-bordered table_es" id="tablamunicipios">
             <thead>
                 <th>Opciones</th>
                 <th>Nombre</th>
@@ -61,7 +61,7 @@
             </thead>
             <tbody id="tmunicipios">
                 @foreach ($municipios as $row)
-                    <tr data-row="{{ $row->id }}">
+                    <tr>
                         <td class="aling_btn_options">
                             <button data-municipio_id_edit="{{ $row->id }}" type="button"
                                 class="btn update_parameterization modal_editar_municipio">
@@ -123,37 +123,53 @@
         })
 
         $('body').on('click', '.filtrar', function() {
-            // alert('llego')
             $.post(
                 "{{ route('buscar_municipio') }}",
                 $('#buscar_municipio').serialize()
             ).done(function(data) {
                 console.log(data);
-                $('#tmunicipios * ').remove()
                 tabla(data)
             })
         })
 
+        $('body').on('click', '.btn_eliminar_municipio', function() {
+            $.post(
+                "{{ route('municipio.destroy') }}",
+                $('#eliminar_municipio').serialize()
+            ).done(function(data) {
+                console.log(data);
+                if (data.status == 200) {
+                    console.log(data);
+                    alertas(data.msg, 'success')
+                    tabla(data)
+                    // let row = $(`#id_municipio`).val();
+                    // $(`[data-row="${row}"]`).remove();
+                } else {
+                    alertas(data.msg, 'error')
+                }
+            })
+        })
+
         function tabla(data) {
-            var carguetabla = ''
-            $.each(data['municipios'], function(key, val) {
-                carguetabla += `<tr data-row="${val.id}">
-                        <td class="aling_btn_options">
-                            <button data-municipio_id_edit=" ${val.id}" type="button"
-                                class="btn update_parameterization modal_editar_municipio">
+            var table = $('#tablamunicipios').DataTable();
+            $('#tablamunicipios').DataTable().clear().draw();
+            $.each(data.municipio, function(key, val) {
+                let botones = `
+                            <button data-municipio_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_municipio">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button data-municipio_id="${val.id}" type="button"
-                                class="btn delete_parameterization btn_modal_eliminar">
+                            <button data-municipio_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar" seleccion="0" >
                                 <i class="fas fa-trash"></i>
                             </button>
-                        </td>
-                        <td>${val.nombre}</td>
-                        <td>${val.dep_nombre}</td>
-                        <td>${val.created_at}</td>
-                    </tr>`;
+                            `;
+
+                table.row.add([
+                    botones,
+                    val.nombre,
+                    val.dep_nombre,
+                    val.created_at,
+                ]).draw();
             })
-            $('#tmunicipios').append(carguetabla)
         }
 
     </script>
