@@ -10,11 +10,11 @@
                     @csrf
                     <div class="mb-3">
                         <label for="nombre" class="col-form-label">Nombre de municipio</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre">
+                        <input type="text" class="form-control validar" id="nombre" name="nombre">
                     </div>
                     <div class="mb-3">
                         <label for="message-text" class="col-form-label">Departamento </label>
-                        <select name="dep_id" id="" class="form-select">
+                        <select name="dep_id" id="" class="form-select validar">
                             <option value="">Selecciona</option>
                             @foreach ($departamentos as $row)
                                 <option value="{{ $row->id }}">{{ $row->nombre }}</option>
@@ -33,17 +33,20 @@
 
 <script>
     $('body').on('click', '.crear_municipio', function() {
-        $.post(
-            "{{ route('municipío.store') }}",
-            $('#crear_municipio').serialize()
-        ).done(function(data) {
-            if (data.status == 200) {
-                aniadirATabla(data)
-                alertas(data.msg, 'success')
-            } else {
-                alert(data.msg)
-            }
-        })
+
+        if(obligatorio('validar')){
+            $.post(
+                "{{ route('municipío.store') }}",
+                $('#crear_municipio').serialize()
+            ).done(function(data) {
+                if (data.status == 200) {
+                    aniadirATabla(data)
+                    alertas(data.msg, 'success')
+                } else {
+                    alert(data.msg)
+                }
+            })
+        }
     })
 
     function aniadirATabla(data) {

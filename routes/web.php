@@ -30,7 +30,7 @@ Route::get('/report-cabildos', function () {
     return view('sessions.report');
 });
 Route::get('/list-cabildos',[CabildosController::class,'list']);
-    
+
 
 
 //--------------------------------------------------------------------------------------
@@ -70,3 +70,4 @@ Route::post('/modal_creartipoDocumento',[TipoDocumentoController::class,'modal_c
 Route::post('/crear_tipoDocumento',[TipoDocumentoController::class,'store'])->name('tipoDocumento.store');
 Route::post('/editar_tipoDocumento',[TipoDocumentoController::class, 'edit'])->name('tipoDocumento.edit');
 Route::post('/update_tipoDocumento',[TipoDocumentoController::class, 'update'])->name('tipoDocumento.update');
+Route::post('buscar-tipoDocumento',[TipoDocumentoController::class,'buscar_tipoDocumento'])->name('buscar_tipoDocumento');

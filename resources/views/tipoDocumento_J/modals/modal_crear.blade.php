@@ -10,7 +10,7 @@
                     @csrf
                     <div class="mb-3">
                         <label for="nombre" class="col-form-label">Nombre del documento</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre">
+                        <input type="text" class="form-control validar" id="nombre" name="nombre">
                     </div>
                 </form>
             </div>
@@ -24,17 +24,19 @@
 
 <script>
     $('body').on('click', '.crear_tipoDocumento', function() {
-        $.post(
-            "{{ route('tipoDocumento.store') }}",
-            $('#crear_tipoDocumento').serialize()
-        ).done(function(data) {
-            if (data.status == 200) {
-                alertas(data.msg, 'success')
-                aniadirATabla(data)
-            } else {
-                alertas(data.msg, 'error')
-            }
-        })
+        if(obligatorio('validar')){
+            $.post(
+                "{{ route('tipoDocumento.store') }}",
+                $('#crear_tipoDocumento').serialize()
+            ).done(function(data) {
+                if (data.status == 200) {
+                    alertas(data.msg, 'success')
+                    aniadirATabla(data)
+                } else {
+                    alertas(data.msg, 'error')
+                }
+            })
+        }
     })
 
     function aniadirATabla(data) {

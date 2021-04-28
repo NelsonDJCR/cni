@@ -20,6 +20,20 @@ class TipoDocumentoController extends Controller
             ->with('tipoDocumento', $tipoDocumento);
     }
 
+    public function buscar_tipoDocumento(Request $request)
+    {
+        // return response()->json(['status' => 200, 'msg' => $request->all()]);
+        $post = $request;
+        $tipoDocumento = TipoDocumento::where('estado', 1)
+        ->where(function ($query) use ($post) {
+            if (isset($post['nombre_buscar'])) {
+                if (!empty($post['nombre_buscar']))
+                    $query->orwhere('tipo_documento.nombre', 'like', "%" . $post['nombre_buscar'] . "%");
+            }
+        })->get();
+        return response()->json(['status' => 200, 'tipoDocumento' => $tipoDocumento]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
