@@ -47,15 +47,16 @@
                 <th>Fecha</th>
             </thead>
             <tbody>
-                <tr>
-                    
-                    <td>x</td>
-                    <td>x</td>
-                    <td>x</td>
-                    <td>x</td>
-                    <td>x</td>
-                </tr>
-           
+
+                @foreach ($cabildos as $i)
+                    <tr>
+                        <td>{{ $i->nombre_tema }}</td>
+                        <td>{{ $i->description }}</td>
+                        <td>{{ $i->dep_id }}</td>
+                        <td>{{ $i->mun_id }}</td>
+                        <td>{{ $i->fecha_realizacion }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

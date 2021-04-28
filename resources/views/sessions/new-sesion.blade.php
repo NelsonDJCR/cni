@@ -91,62 +91,11 @@
                         </div>
                     </div>
                     <div class="row mt-5">
-                        <button type="button" class="btn-general btn" id="send_session2">Crear sesión</button>
+                        <button type="button" class="btn-general btn" id="send_session">Crear sesión</button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
-    <script>
-        $("#send_session2").click(function() {
-
-
-
-            let dataForm = new FormData(document.getElementById('form_session'));
-            $.ajax({
-                type: 'POST',
-                url: '/saveSesion',
-                dataType: "json",
-                data: dataForm,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function(data) {
-
-                    if (data.code == 200) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Perfecto',
-                            text: 'Los datos han sido guardados exitosamente',
-                        }).then(function() {
-                            window.location = '/list-cabildos';
-                        });
-
-                    } else {
-
-                        Swal.fire({
-                            icon: 'error',
-                            title: data.msg,
-                            text: 'Ingrese de forma correcta todos los campos'
-                        });
-                    }
-
-
-
-                }
-            })
-
-
-
-
-
-
-
-
-
-
-
-        });
-
-    </script>
+    <script src="{{ asset('js/sessions.js') }}"></script>
 @endsection

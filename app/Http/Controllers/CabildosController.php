@@ -83,25 +83,25 @@ class CabildosController extends Controller
 
     public function list()
     {
-
+        $cabildo = CabildoAbierto::where('estado', 1)->get();
         return view('sessions.list')
-            ->with('cabildos', CabildoAbierto::all());
+            ->with('cabildos', $cabildo);
     }
 
     public function edit($id)
     {
         $documents = Documento::select('documento.*')
-        ->leftjoin("cabildo_soporte", "cabildo_soporte.id_documento", "documento.id")
-        ->where('cabildo_soporte.id_cabildo',$id)
-        ->where('documento.estado',1)
-        ->get();
+            ->leftjoin("cabildo_soporte", "cabildo_soporte.id_documento", "documento.id")
+            ->where('cabildo_soporte.id_cabildo', $id)
+            ->where('documento.estado', 1)
+            ->get();
 
-        $type_document = Documento::select('documento.id_tipo_documento','tipo_documento.nombre')
-        ->leftjoin("cabildo_soporte", "cabildo_soporte.id_documento", "documento.id")
-        ->leftjoin("tipo_documento", "tipo_documento.id", "documento.id_tipo_documento")
-        ->where('cabildo_soporte.id_cabildo',$id)
-        ->where('documento.estado',1)
-        ->first();
+        $type_document = Documento::select('documento.id_tipo_documento', 'tipo_documento.nombre')
+            ->leftjoin("cabildo_soporte", "cabildo_soporte.id_documento", "documento.id")
+            ->leftjoin("tipo_documento", "tipo_documento.id", "documento.id_tipo_documento")
+            ->where('cabildo_soporte.id_cabildo', $id)
+            ->where('documento.estado', 1)
+            ->first();
 
         return view('sessions.edit-sesion')
             ->with('type_file', TipoDocumento::all())
@@ -112,11 +112,100 @@ class CabildosController extends Controller
             ->with('data', CabildoAbierto::find($id));
     }
 
-	public function editDocument(Request $r)
-	{
+    public function editDocument(Request $r)
+    {
         $e = Documento::find($r->id);
         $e->estado = 3;
         $e->save();
+    }
 
+    public function editSesion(Request $r)
+    {
+        $rules = [
+            'nombre_tema' => 'required',
+            'description' => 'required',
+            'dep_id' => 'required|numeric',
+            'mun_id' => 'required|numeric',
+            'fecha_realizacion' => 'required',
+            'radicado_CNE' => 'required',
+        ];
+        $messages = [
+            'nombre_tema.required' => 'El tema es requerido',
+            'description.required' => 'La descripción es requerida',
+            'dep_id.required' => 'El departamento es requerido',
+            'mun_id.required' => 'El municipio es requerido',
+            'fecha_realizacion.required' => 'La fecha es requerida',
+            'radicado_CNE.required' => 'El radicado CNE es requerido',
+        ];
+        $validator = Validator::make($r->all(), $rules, $messages);
+        $e = CabildoAbierto::find($r->id_record);
+        $e->dep_id = $r->dep_id;
+        $e->mun_id = $r->mun_id;
+        $e->radicado_CNE = $r->radicado_CNE;
+        $e->nombre_tema = $r->nombre_tema;
+        $e->description = $r->description;
+        $e->fecha_realizacion = $r->fecha_realizacion;
+        $e->save();
+        $type =  $r->type_file;
+        $record = $r->id_record;
+
+        if (isset($r->file)) {
+            foreach ($r->file as $i) {
+                $path =  $i->store('uploads', 'public');
+
+                $r = new Documento();
+                $r->nombre = $path;
+                $r->id_tipo_documento = $type;
+                $r->save();
+
+
+                $x = new CabildoSoporte();
+                $x->id_cabildo = $record;
+                $x->id_documento = $r->id;
+                $x->save();
+            }
+        }
+        if ($validator->fails()) {
+            return response()->json(['status' => 406, 'msg' => $validator->errors()->first()]);
+        } else {
+            return response()->json([
+                'msg' => 'Datos actualizados correctamente',
+                'code' => 200,
+            ]);
+        }
+    }
+
+    public function deleteSesion(Request $r)
+    {
+        $e = CabildoAbierto::find($r->id);
+        $e->estado = 0;
+        $e->save();
+    }
+
+    public function viewDocuments(Request $r)
+    {
+        $documents = Documento::select('documento.*')
+            ->leftjoin("cabildo_soporte", "cabildo_soporte.id_documento", "documento.id")
+            ->where('cabildo_soporte.id_cabildo', $r->id)
+            ->where('documento.estado', 1)
+            ->get();
+
+        return response()->json([
+            'data'=>$documents
+        ]);
+    }
+
+	public function downloadFile($file)
+	{
+		return response()->download(storage_path("app/public/uploads/$file"));
+	}
+
+	public function reportSessions()
+	{
+
+        $cabildo = CabildoAbierto::where('estado', 1)->get();
+        return view('sessions.list')
+            ->with('cabildos', $cabildo);
+		
 	}
 }

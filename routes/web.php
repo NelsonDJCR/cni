@@ -25,10 +25,11 @@ Route::get('/new-sesion', [CabildosController::class,'getIndex']);
 Route::post('/saveSesion', [CabildosController::class,'save']);
 Route::get('/edit-sesion/{id}', [CabildosController::class,'edit']);
 Route::post('/edit-sesion-document', [CabildosController::class,'editDocument']);
-
-Route::get('/report-cabildos', function () {
-    return view('sessions.report');
-});
+Route::post('/editSesion', [CabildosController::class,'editSesion']);
+Route::post('/delete-session', [CabildosController::class,'deleteSesion']);
+Route::post('/view-documents', [CabildosController::class,'viewDocuments']);
+Route::get('/uploads/{file}',[CabildosController::class,'downloadFile']);
+Route::get('/report-cabildos', [CabildosController::class,'reportSessions']);
 Route::get('/list-cabildos',[CabildosController::class,'list']);
     
 
