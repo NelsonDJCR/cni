@@ -18,7 +18,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary editar_tipoDocumento">Guardar</button>
             </div>
         </div>
@@ -55,18 +55,6 @@
                     ] ).draw( );
 
                     $(`button[data-tipodocumento_id_edit="${data.tipo_documento.id}"]`).parent().parent().attr('data-row',data.tipo_documento.id);
-                    // $(`[data-row="${row}"]`).html(`
-                    // <td class="aling_btn_options">
-                    //         <button data-tipodocumento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
-                    //             <i class="fas fa-edit"></i>
-                    //         </button>
-                    //         <button data-tipodocumento_id="${val.id} " type="button" class="btn delete_parameterization btn_modal_eliminar">
-                    //             <i class="fas fa-trash"></i>
-                    //         </button>
-                    //     </td>
-                    //     <td>${val.nombre}</td>
-                    //     <td>${val.created_at}</td>
-                    // `);
                 } else {
                     alertas(data.msg, 'error')
                 }

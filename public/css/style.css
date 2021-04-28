@@ -26,6 +26,13 @@ body{
     box-shadow: 5px 5px 9px var(--gris_claro);
 }
 
+tbody>tr>td {
+    /* background: yellow; */
+    text-align: center;
+    /* border: 1px solid red; */
+}
+
+
 .title_parameterization h1,
 h2 {
     text-align: right;
@@ -300,12 +307,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: #91a09dec;
 }
 
-@media(min-width: 768px) {
+/* @media(min-width: 768px) {
     .new_document {
         position: relative;
         left: 30%;
     }
-}
+} */
 
 @media(max-width: 575px) {
     .title_parameterization .btn-block {

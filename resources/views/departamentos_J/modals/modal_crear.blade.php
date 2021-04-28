@@ -1,4 +1,5 @@
-<div class="modal fade" id="modal_crear_departamento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_crear_departamento" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -15,7 +16,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary crear_departamento">Guardar</button>
             </div>
         </div>
@@ -24,14 +25,34 @@
 
 <script>
     $('body').on('click', '.crear_departamento', function() {
-        if(obligatorio('validar1')){
+        if (obligatorio('validar1')) {
             $.post(
                 "{{ route('departamento.store') }}",
                 $('#crear_departamento').serialize()
             ).done(function(data) {
                 if (data.status == 200) {
+                    console.log(data);
                     alertas(data.msg, 'success')
-                    aniadirATabla(data)
+
+                    var table = $('#tabladepartamentos').DataTable();
+
+                    let botones = `
+                    <button data-departamento_id_edit="${data.departamento.id}" type="button" class="btn update_parameterization modal_editar_departamento">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button data-departamento_id="${data.departamento.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    `;
+
+                    let filaTabla = table.row.add([
+                        botones,
+                        data.departamento.nombre,
+                        data.departamento.created_at,
+
+                    ]).draw();
+
+
                 } else {
                     alertas(data.msg, 'error')
                 }

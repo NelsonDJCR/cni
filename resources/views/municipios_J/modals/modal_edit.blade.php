@@ -25,7 +25,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary editar_municipio">Guardar</button>
             </div>
         </div>
@@ -42,23 +42,7 @@
             ).done(function(data) {
                 if(data.status == 200){
                     alertas(data.msg, 'success')
-                    let val = data.municipio
-                    let departamento = data.departamento
-                    let row = $(`#id_municipio_edit`).val();
-                    $(`[data-row="${row}"]`).html(`
-                    <td class="aling_btn_options">
-                            <button data-municipio_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_municipio">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button data-municipio_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                        <td>${val.nombre}</td>
-                        <td>${departamento.nombre}</td>
-                        <td>${val.created_at}</td>
-                    `);
-
+                    tabla(data)
                 }else{
                     alertas(data.msg, 'error')
                 }

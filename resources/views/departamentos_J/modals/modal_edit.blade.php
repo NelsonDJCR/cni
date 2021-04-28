@@ -16,7 +16,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary editar_departamento">Guardar</button>
             </div>
         </div>
@@ -31,20 +31,27 @@
                 $('#editar_departamento').serialize()
             ).done(function(data) {
                 alertas(data.msg, 'success')
-                let val = data.departamento
-                let row = $(`#id_departamento_edit`).val();
-                    $(`[data-row="${row}"]`).html(`
-                    <td class="aling_btn_options">
-                            <button data-departamento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_municipio">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button data-departamento_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                        <td>${val.nombre}</td>
-                        <td>${val.created_at}</td>
-                    `);
+                    let val = data.departamento
+                    let row = $(`#departamento_id_edit`).val()
+                    var table = $('#tabladepartamentos').DataTable();
+                    table.row(`[data-row="${row}"]`).remove().draw(false);
+                    let botones = `
+                    <button data-tipodocumento_id_edit="${data.departamento.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button data-tipodocumento_id="${data.departamento.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    `;
+
+                    let filaTabla = table.row.add( [
+                        botones,
+                        data.departamento.nombre,
+                        data.departamento.created_at,
+
+                    ] ).draw( );
+
+                    $(`button[data-tipodocumento_id_edit="${data.departamento.id}"]`).parent().parent().attr('data-row',data.departamento.id);
             })
         }
     })

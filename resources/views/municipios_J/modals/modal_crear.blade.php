@@ -24,7 +24,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary crear_municipio">Guardar</button>
             </div>
         </div>
@@ -40,33 +40,29 @@
                 $('#crear_municipio').serialize()
             ).done(function(data) {
                 if (data.status == 200) {
-                    aniadirATabla(data)
+                    console.log(data);
                     alertas(data.msg, 'success')
+                    var table = $('#tablamunicipios').DataTable();
+                    let botones = `
+                    <button data-municipio_id_edit="${data.municipios.id}" type="button" class="btn update_parameterization modal_editar_municipio">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button data-municipio_id="${data.municipios.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
+                        <i class="fas fa-trash"></i>
+                    </button>`;
+
+                    let filaTabla = table.row.add([
+                        botones,
+                        data.municipios.nombre,
+                        data.departamento.nombre,
+                        data.municipios.created_at,
+
+                    ]).draw();
                 } else {
-                    alert(data.msg)
+                    alertas(data.msg, 'success')
                 }
             })
         }
     })
-
-    function aniadirATabla(data) {
-        var carguetabla = ''
-        let val = data['tabla']
-        let departamento = data['departamento']
-        carguetabla += `<tr data-row="${val.id}">
-                    <td class="aling_btn_options">
-                        <button data-municipio_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_municipio">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button data-municipio_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                    <td>${val.nombre}</td>
-                    <td>${departamento.nombre}</td>
-                    <td>${val.created_at}</td>
-                </tr>`
-        $('#tmunicipios').append(carguetabla)
-    }
 
 </script>
