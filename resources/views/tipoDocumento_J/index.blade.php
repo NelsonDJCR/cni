@@ -50,17 +50,10 @@
     <!-- Inicio de tabla resposive -->
     <div class="row mt-5">
         <div class="col-10"></div>
-        <div class="col-2">
-            <span>Cantidad </span>
-            <select>
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-            </select>
-        </div>
+        <div class="col-2"></div>
     </div>
     <div class="container table-responsive mt-1">
-        <table class="table table-bordered">
+        <table class="table table-bordered table_es" id="tablaDocumentos">
             <thead>
                 <th>Opciones</th>
                 <th>Nombre</th>
@@ -69,7 +62,7 @@
             <tbody id="ttipoDocumento">
                 @foreach ($tipoDocumento as $row)
                 <tr data-row="{{$row->id}}">
-                    <td class="aling_btn_options">
+                    <td>
                         <button data-tipodocumento_id_edit="{{ $row->id }}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
                             <i class="fas fa-edit"></i>
                         </button>
@@ -84,6 +77,15 @@
             </tbody>
         </table>
     </div>
+
+
+    <style>
+        tbody > tr > td{
+            /* background: yellow; */
+            text-align: center;
+            /* border: 1px solid red; */
+        }
+    </style>
 
     @include('tipoDocumento_J.modals.modal_crear')
     @include('tipoDocumento_J.modals.modal_eliminar')

@@ -17,25 +17,61 @@ class MunicipioController extends Controller
      */
     public function index()
     {
-        $departamentos = Departamento::where('estado',1)->get();
+        $departamentos = Departamento::where('estado', 1)->get();
         // return $departamentos;
-        $municipios = Municipio::where('estado',1)->get();
+        $municipios = Municipio::where('estado', 1)->get();
         $municipios = DB::table('municipio')
-        ->join('departamento','departamento.id','=','municipio.dep_id')
-        ->select(
-            'municipio.id',
-            'municipio.nombre',
-            'municipio.estado',
-            'municipio.usuario_creador',
-            'municipio.created_at',
-            'municipio.dep_id',
-            DB::raw('departamento.nombre as dep_nombre'),
-            DB::raw('departamento.estado as dep_estado'),
-    )->where('municipio.estado',1)
-    ->where('departamento.estado',1)->get();
+            ->join('departamento', 'departamento.id', '=', 'municipio.dep_id')
+            ->select(
+                'municipio.id',
+                'municipio.nombre',
+                'municipio.estado',
+                'municipio.usuario_creador',
+                'municipio.created_at',
+                'municipio.dep_id',
+                DB::raw('departamento.nombre as dep_nombre'),
+                DB::raw('departamento.estado as dep_estado'),
+            )->where('municipio.estado', 1)
+            ->where('departamento.estado', 1)->get();
         return view("municipios_J.index")
-        ->with('municipios',$municipios)
-        ->with('departamentos',$departamentos);
+            ->with('municipios', $municipios)
+            ->with('departamentos', $departamentos);
+    }
+
+    public function buscar_municipio(Request $request)
+    {
+        // return response()->json(['status' => 200, 'msg' => $request->all()]);
+        $post = $request;
+
+        $municipios = DB::table('municipio')
+            ->join('departamento', 'departamento.id', '=', 'municipio.dep_id')
+            ->select(
+                'municipio.id',
+                'municipio.nombre',
+                'municipio.estado',
+                'municipio.usuario_creador',
+                'municipio.created_at',
+                'municipio.dep_id',
+                DB::raw('departamento.nombre as dep_nombre'),
+                DB::raw('departamento.estado as dep_estado'),
+            )->where('municipio.estado', 1)
+            ->where('departamento.estado', 1)
+            ->where(function ($query) use ($post) {
+                if (isset($post['nombre_buscar'])) {
+                    if (!empty($post['nombre_buscar']))
+                        $query->orwhere('municipio.nombre', 'like', "%" . $post['nombre_buscar'] . "%");
+                }
+            })->get();
+
+
+        // $departamento = Departamento::where('estado', 1)
+        //     ->where(function ($query) use ($post) {
+        //         if (isset($post['nombre_buscar'])) {
+        //             if (!empty($post['nombre_buscar']))
+        //                 $query->orwhere('departamento.nombre', 'like', "%" . $post['nombre_buscar'] . "%");
+        //         }
+        //     })->get();
+        return response()->json(['status' => 200, 'municipios' => $municipios]);
     }
 
     /**
@@ -60,10 +96,10 @@ class MunicipioController extends Controller
         $municipio->nombre = $request->nombre;
         $municipio->usuario_creador = 1;
         $municipio->dep_id = $request->dep_id;
-        if($municipio->save()):
-        $departamento = Departamento::find($municipio->dep_id);
-        return response()->json(['status' => 200, 'msg' => 'municipio creado con éxito', 'tabla' => $municipio, 'departamento' => $departamento]);
-        else:
+        if ($municipio->save()) :
+            $departamento = Departamento::find($municipio->dep_id);
+            return response()->json(['status' => 200, 'msg' => 'municipio creado con éxito', 'tabla' => $municipio, 'departamento' => $departamento]);
+        else :
             return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
         endif;
     }
@@ -104,10 +140,10 @@ class MunicipioController extends Controller
         $municipio = Municipio::find($request->municipio_id);
         $municipio->nombre = $request->nombre_edit;
         $municipio->dep_id = $request->dep_id_edit;
-        if($municipio->save()):
+        if ($municipio->save()) :
             $departamento = Departamento::find($municipio->dep_id);
             return response()->json(['status' => 200, 'msg' => 'editado correctamente', 'municipio' => $municipio, 'departamento' => $departamento]);
-        else:
+        else :
             return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
         endif;
     }
@@ -123,19 +159,20 @@ class MunicipioController extends Controller
         $id = $request->municipio_id;
         $municipio = Municipio::find($id);
         $municipio->estado = 3;
-        if($municipio->save()):
-            $municipios = Municipio::where('estado',1)->get();
+        if ($municipio->save()) :
+            $municipios = Municipio::where('estado', 1)->get();
             return response()->json([
-            'status' => 200,
-            'msg' => 'Municipio eliminado con éxito',
-            'tabla' => $municipios
+                'status' => 200,
+                'msg' => 'Municipio eliminado con éxito',
+                'tabla' => $municipios
             ]);
-        else:
+        else :
             return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
         endif;
     }
 
-    public function modal_eliminar_municipio(Request $request){
+    public function modal_eliminar_municipio(Request $request)
+    {
         return response()->json(['id' => $request->id]);
     }
 }

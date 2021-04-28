@@ -31,12 +31,15 @@
         <div class="col-sm-1"></div>
         <div class="col-sm-5 col-md-4 col-xl-3">
             <div class="form-group form_configure">
-                <label for="name">Nombre</label>
-                <input type="text" class="form-control" id="name">
+                <form id="buscar_municipio">
+                    @csrf
+                    <label for="name">Nombre</label>
+                    <input type="text" class="form-control" id="name" name="nombre_buscar">
+                </form>
             </div>
         </div>
         <div class="col-sm-3 col-md-3 mt-4 col-xl-2">
-            <button class="btn btn-block search_parameterization">Buscar</button>
+            <button class="btn btn-block search_parameterization filtrar">Buscar</button>
         </div>
         <div class="col-7 col-sm-4 col-md-5 col-xl-6"></div>
     </div>
@@ -46,17 +49,10 @@
     <!-- Inicio de tabla resposive -->
     <div class="row mt-5">
         <div class="col-10"></div>
-        <div class="col-2">
-            <span>Cantidad </span>
-            <select>
-                <option value="">10</option>
-                <option value="">25</option>
-                <option value="">50</option>
-            </select>
-        </div>
+        <div class="col-2"></div>
     </div>
     <div class="container table-responsive mt-1">
-        <table class="table table-bordered">
+        <table class="table table-bordered table_es">
             <thead>
                 <th>Opciones</th>
                 <th>Nombre</th>
@@ -65,19 +61,21 @@
             </thead>
             <tbody id="tmunicipios">
                 @foreach ($municipios as $row)
-                <tr data-row="{{$row->id}}">
-                    <td class="aling_btn_options">
-                        <button data-municipio_id_edit="{{ $row->id }}" type="button" class="btn update_parameterization modal_editar_municipio">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button data-municipio_id="{{ $row->id }}" type="button" class="btn delete_parameterization btn_modal_eliminar">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                    <td>{{ $row->nombre }}</td>
-                    <td>{{ $row->dep_nombre }}</td>
-                    <td>{{ $row->created_at }}</td>
-                </tr>
+                    <tr data-row="{{ $row->id }}">
+                        <td class="aling_btn_options">
+                            <button data-municipio_id_edit="{{ $row->id }}" type="button"
+                                class="btn update_parameterization modal_editar_municipio">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button data-municipio_id="{{ $row->id }}" type="button"
+                                class="btn delete_parameterization btn_modal_eliminar">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                        <td>{{ $row->nombre }}</td>
+                        <td>{{ $row->dep_nombre }}</td>
+                        <td>{{ $row->created_at }}</td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -91,9 +89,9 @@
 
 
     <script>
-        $('body').on('click','.btn_modal_eliminar',function() {
+        $('body').on('click', '.btn_modal_eliminar', function() {
             $.post(
-                "{{ route('modal_eliminar_municipio') }}",{
+                "{{ route('modal_eliminar_municipio') }}", {
                     _token: "{{ csrf_token() }}",
                     id: $(this).data('municipio_id')
                 }
@@ -103,13 +101,13 @@
             })
         })
 
-        $('body').on('click','.modal_crear_municipio',function() {
+        $('body').on('click', '.modal_crear_municipio', function() {
             $('#modal_crear_municipio').modal('show')
         })
 
-        $('body').on('click','.modal_editar_municipio',function () {
+        $('body').on('click', '.modal_editar_municipio', function() {
             $.post(
-                "{{ route('municipio.edit') }}",{
+                "{{ route('municipio.edit') }}", {
                     _token: "{{ csrf_token() }}",
                     id: $(this).data('municipio_id_edit')
                 }
@@ -117,11 +115,46 @@
                 let municipio = data.municipio
                 $('#nombre_municipio_edit').val(municipio.nombre)
                 $('#message-text1 option').removeAttr('selected');
-                $(`#message-text1 option[value="${municipio.dep_id}"]`).attr('selected','selected');
+                $(`#message-text1 option[value="${municipio.dep_id}"]`).attr('selected', 'selected');
 
                 $('#id_municipio_edit').val(municipio.id)
                 $('#modal_edit_municipio').modal('show')
             })
         })
+
+        $('body').on('click', '.filtrar', function() {
+            // alert('llego')
+            $.post(
+                "{{ route('buscar_municipio') }}",
+                $('#buscar_municipio').serialize()
+            ).done(function(data) {
+                console.log(data);
+                $('#tmunicipios * ').remove()
+                tabla(data)
+            })
+        })
+
+        function tabla(data) {
+            var carguetabla = ''
+            $.each(data['municipios'], function(key, val) {
+                carguetabla += `<tr data-row="${val.id}">
+                        <td class="aling_btn_options">
+                            <button data-municipio_id_edit=" ${val.id}" type="button"
+                                class="btn update_parameterization modal_editar_municipio">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button data-municipio_id="${val.id}" type="button"
+                                class="btn delete_parameterization btn_modal_eliminar">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                        <td>${val.nombre}</td>
+                        <td>${val.dep_nombre}</td>
+                        <td>${val.created_at}</td>
+                    </tr>`;
+            })
+            $('#tmunicipios').append(carguetabla)
+        }
+
     </script>
 @endsection

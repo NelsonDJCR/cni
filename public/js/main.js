@@ -18,8 +18,9 @@ $('body').on('click', '.delete_file', function() {
 
 $(document).ready(function() {
     $('.table_es').DataTable( {
+        // "searching": false,
         "language": {
-            "lengthMenu": "Mostar _MENU_ resultados por página",
+            "lengthMenu": "Cantidad _MENU_",
             "zeroRecords": "Ningun resultado encontrado",
             "info": "Página _PAGE_ de _PAGES_",
             "infoEmpty": "No hay registros disponibles",

@@ -45,7 +45,6 @@ h2 {
     background-color: var(--azul_oscuro);
     color: var(--blanco);
     position: relative;
-    top: 7px;
 }
 
 .span {
@@ -178,7 +177,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 .download_parameterization{
     background-color: var(--amarillo_claro);
-    
+
     color: var(--amarillo);
     height: 35px;
     width: 35px;
