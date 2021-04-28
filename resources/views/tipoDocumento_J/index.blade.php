@@ -1,30 +1,24 @@
 @extends('layouts.app')
 @section('content')
 
-
     <!-- Inicio de título y crear documento -->
-    <div class="row mt-5">
-        <div class="col-1"></div>
-        <div class="col-11">
-            <span>Veedurías/Parametrización/Tipos de documento</span>
-        </div>
-    </div>
 
-    <div class="row mt-0">
-        <div class="col-md-1 col-1"></div>
-        <div class="col-md-10 col-10 title_parameterization">
+    <div class="container mt-5">
+        <label for="" class="p-2">Veedurías/Parametrización/Tipos de documento</label>
+        <div class="row p-2 text-center border shadow">
             <div class="row">
-                <div class="col-md-7 col-sm-8 col-12">
-                    <h2>Tipos de documentos</h2>
+                <div class="col-12 col-md-12 col-lg-10 col-xl-9 p-2">
+                    <h1 class="text-blue "> <b>TIPOS DE DOCUMENTOS</b> </h1>
                 </div>
-                <div class="col-1 d-none d-xl-inline"></div>
-                <div class="col-md-3 col-sm-4 col-xl-3 col-12 mt-1">
-                    <button type="button" class="btn btn-block new_document modal_crear_tipoDocumento">Nuevo
+                <div class='col-12 col-md-12 col-lg-2 col-xl-3 p-2'>
+                    <button type="button"
+                        class="btn btn-warning text-white mt-2 new_document modal_crear_tipoDocumento">Nuevo
                         documento</button>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Final de título y crear documento -->
 
 
@@ -138,13 +132,13 @@
             $('#tablaDocumentos').DataTable().clear().draw();
             $.each(data.tipoDocumento, function(key, val) {
                 let botones = `
-                        <button data-tipodocumento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button data-tipodocumento_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar" seleccion="0" >
-                            <i class="fas fa-trash"></i>
-                        </button>
-                        `;
+                            <button data-tipodocumento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button data-tipodocumento_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar" seleccion="0" >
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            `;
 
                 table.row.add([
                     botones,

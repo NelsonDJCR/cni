@@ -17,7 +17,7 @@
             <input id="id_tipoDocumento" type="hidden" name="tipoDocumento_id">
         </form>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
           <button type="button" class="btn btn-danger btn_eliminar_tipoDocumento">Eliminar</button>
         </div>
       </div>
@@ -25,5 +25,5 @@
   </div>
 
   <script>
-      
+
   </script>

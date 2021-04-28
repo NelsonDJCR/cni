@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $('.table_es').DataTable( {
-        // "searching": false,
+        "searching": false,
         "language": {
             "lengthMenu": "Cantidad _MENU_",
             "zeroRecords": "Ningun resultado encontrado",

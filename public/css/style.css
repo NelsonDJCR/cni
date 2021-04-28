@@ -307,12 +307,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: #91a09dec;
 }
 
-@media(min-width: 768px) {
+/* @media(min-width: 768px) {
     .new_document {
         position: relative;
         left: 30%;
     }
-}
+} */
 
 @media(max-width: 575px) {
     .title_parameterization .btn-block {
