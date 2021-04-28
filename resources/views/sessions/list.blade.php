@@ -14,26 +14,35 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-5">
-            <div class="mb-3 col-3">
-                <label for="" class="form-label"><b>Tema</b></label>
-                <input type="text" class="form-control" id="">
+        <form id="filter_list">
+            @csrf
+            <div class="row mt-5">
+                <div class="mb-3 col-3">
+                    <label for="" class="form-label"><b>Tema</b></label>
+                    <input type="text" class="form-control" id="" value="{{(isset($post['nombre_tema'])?$post['nombre_tema']:'')}}" name="nombre_tema">
+                </div>
+                <div class="mb-3 col-3">
+                    <label for="" class="form-label"><b>Departamento</b></label>
+                    <select class="form-control " name="dep_id">
+                        <option selected disabled></option>
+                        @foreach ($departments as $i)
+                            <option value="{{ $i->id }}" {{(isset($post['dep_id'])?($post['dep_id']==$i->id?'selected':''):'')}}>{{ $i->nombre }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3 col-3">
+                    <label for="" class="form-label"><b>Fecha</b></label>
+                    <input type="date" class="form-control" id="" value="{{(isset($post['fecha_realizacion'])?$post['fecha_realizacion']:'')}}" name="fecha_realizacion">
+                </div>
             </div>
-            <div class="mb-3 col-3">
-                <label for="" class="form-label"><b>Departamento</b></label>
-                <input type="text" class="form-control" id="">
+                <div class="row mt-2 col-3">
+                    <button class="btn-general btn w-80 btn_search">Buscar</button>
+                </div>
             </div>
-            <div class="mb-3 col-3">
-                <label for="" class="form-label"><b>Fecha</b></label>
-                <input type="date" class="form-control" id="">
-            </div>
-            <div class="row mt-2 col-3">
-                <button class="btn-general btn w-80 ">Buscar</button>
-            </div>
-        </div>
+        </form>
     </div>
     <div class="container table-responsive mt-5">
-        <table class="table table-bordered">
+        <table class="table table-bordered table_es" id="table_sessions">
             <thead>
                 <th>Opciones</th>
                 <th>Tema</th>
@@ -69,7 +78,13 @@
         </table>
     </div>
     @include('modals.download')
+    
     <script>
+        $(".btn_search").click(function() {
+            $("#filter_list").attr('action','/list-cabildos')
+            $("#filter_list").submit()
+        });
+
         $(".download_btn").click(function() {
             var id = $(this).data('id')
             $.post('/view-documents', {
@@ -80,16 +95,18 @@
                 $("#box_files *").remove()
                 $("#modal_download").modal('show')
                 $.each(e['data'], function(key, val) {
-                    $("#box_files").append(`<div class="row">
-                                    <div class="col-11">
-                                        <input type="text" value="${val.nombre}" disabled class="form-control mb-3" />
-                                    </div>
-                                    <div class="aling_btn_options col-1">
-                                        <a href="${val.nombre}" download="x.pdf" type="button" class="btn download_parameterization">
-                                            <i class="fas fa-download"></i>
-                                        </a>
-                                    </div>
-                                </div>`)
+                    $("#box_files")
+                        .append(
+                            `<div class="row">
+                                <div class="col-11">
+                                    <input type="text" value="${val.nombre}" disabled class="form-control mb-3" />
+                                </div>
+                                <div class="aling_btn_options col-1">
+                                    <a href="${val.nombre}" download="x.pdf" type="button" class="btn download_parameterization">
+                                        <i class="fas fa-download"></i>
+                                    </a>
+                                </div>
+                            </div>`)
                 })
             });
         });
@@ -114,12 +131,11 @@
                             title: 'Perfecto',
                             text: 'El documento ha sido eliminado',
                         });
-                        record.parent().parent().remove();
+                        var table = $("#table_sessions").DataTable();
+                        table.row(record.parent().parent()).remove().draw();
                     });
                 }
             })
-
-
         });
 
     </script>

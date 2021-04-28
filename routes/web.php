@@ -8,6 +8,7 @@ use App\Models\Departamento;
 use App\Models\TipoArchivo;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CabildosController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,7 @@ use App\Http\Controllers\CabildosController;
 |
 */
 
+Route::get('/', [CabildosController::class,'getIndex']);
 
 Route::get('/new-sesion', [CabildosController::class,'getIndex']);
 Route::post('/saveSesion', [CabildosController::class,'save']);
@@ -30,7 +32,18 @@ Route::post('/delete-session', [CabildosController::class,'deleteSesion']);
 Route::post('/view-documents', [CabildosController::class,'viewDocuments']);
 Route::get('/uploads/{file}',[CabildosController::class,'downloadFile']);
 Route::get('/report-cabildos', [CabildosController::class,'reportSessions']);
+Route::post('/report-cabildos', [CabildosController::class,'reportSessions']);
 Route::get('/list-cabildos',[CabildosController::class,'list']);
+
+
+
+//--------------------------------------------------------------------------------------
+// Rutas para reportes
+//--------------------------------------------------------------------------------------
+
+Route::get('/excel-cabildos', [ReportController::class,'excelCabildos']);
+Route::post('/excel-cabildos', [ReportController::class,'excelCabildos']);
+
 
 
 

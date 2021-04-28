@@ -81,10 +81,34 @@ class CabildosController extends Controller
         }
     }
 
-    public function list()
+    public function list(Request $r)
     {
-        $cabildo = CabildoAbierto::where('estado', 1)->get();
+
+
+        $post = $r;
+        $cabildo = CabildoAbierto::where('estado', 1)
+            ->where(function ($query) use ($post) {
+                if (isset($post['nombre_tema'])) {
+                    if (!empty($post['nombre_tema']))
+                        $query->orwhere('cabildo_abierto.nombre_tema', 'like', "%" . $post['nombre_tema'] . "%");
+                }
+            })
+            ->where(function ($query) use ($post) {
+                if (isset($post['dep_id'])) {
+                    if (!empty($post['dep_id']))
+                        $query->orwhere('cabildo_abierto.dep_id', 'like', "%" . $post['dep_id'] . "%");
+                }
+            })
+            ->where(function ($query) use ($post) {
+                if (isset($post['fecha_realizacion'])) {
+                    if (!empty($post['fecha_realizacion']))
+                        $query->orwhere('cabildo_abierto.fecha_realizacion', 'like', "%" . $post['fecha_realizacion'] . "%");
+                }
+            })
+            ->get();
         return view('sessions.list')
+            ->with('municipios', Municipio::all())
+            ->with('departments', Departamento::all())
             ->with('cabildos', $cabildo);
     }
 
@@ -191,21 +215,49 @@ class CabildosController extends Controller
             ->get();
 
         return response()->json([
-            'data'=>$documents
+            'data' => $documents
         ]);
     }
 
-	public function downloadFile($file)
-	{
-		return response()->download(storage_path("app/public/uploads/$file"));
-	}
+    public function downloadFile($file)
+    {
+        return response()->download(storage_path("app/public/uploads/$file"));
+    }
 
-	public function reportSessions()
-	{
+    public function reportSessions(Request $r)
+    {
 
-        $cabildo = CabildoAbierto::where('estado', 1)->get();
-        return view('sessions.list')
-            ->with('cabildos', $cabildo);
-		
-	}
+        $post = $r;
+        $cabildo = CabildoAbierto::where('estado', 1)
+            ->where(function ($query) use ($post) {
+                if (isset($post['nombre_tema'])) {
+                    if (!empty($post['nombre_tema']))
+                        $query->orwhere('cabildo_abierto.nombre_tema', 'like', "%" . $post['nombre_tema'] . "%");
+                }
+            })
+            ->where(function ($query) use ($post) {
+                if (isset($post['dep_id'])) {
+                    if (!empty($post['dep_id']))
+                        $query->orwhere('cabildo_abierto.dep_id', 'like', "%" . $post['dep_id'] . "%");
+                }
+            })
+            ->where(function ($query) use ($post) {
+                if (isset($post['mun_id'])) {
+                    if (!empty($post['mun_id']))
+                        $query->orwhere('cabildo_abierto.mun_id', 'like', "%" . $post['mun_id'] . "%");
+                }
+            })
+            ->where(function ($query) use ($post) {
+                if (isset($post['fecha_realizacion'])) {
+                    if (!empty($post['fecha_realizacion']))
+                        $query->orwhere('cabildo_abierto.fecha_realizacion', 'like', "%" . $post['fecha_realizacion'] . "%");
+                }
+            })
+            ->get();
+        return view('sessions.report')
+            ->with('departments', Departamento::all())
+            ->with('municipios', Municipio::all())
+            ->with('cabildos', $cabildo)
+            ->with('post', $r);
+    }
 }
