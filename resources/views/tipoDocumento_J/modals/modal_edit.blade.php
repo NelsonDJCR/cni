@@ -12,7 +12,8 @@
                     <input id="id_tipoDocumento_edit" class="validar" type="hidden" name="tipoDocumento_id" value="">
                     <div class="mb-3">
                         <label for="nombre_tipoDocumento_edit" class="col-form-label">Nombre de documento</label>
-                        <input type="text" class="form-control validar" id="nombre_tipoDocumento_edit" name="nombre_edit">
+                        <input type="text" class="form-control validar" id="nombre_tipoDocumento_edit"
+                            name="nombre_edit">
                     </div>
                 </form>
             </div>
@@ -26,7 +27,7 @@
 
 <script>
     $('body').on('click', '.editar_tipoDocumento', function() {
-        if(obligatorio('validar')){
+        if (obligatorio('validar')) {
             $.post(
                 "{{ route('tipoDocumento.update') }}",
                 $('#editar_tipoDocumento').serialize()
@@ -35,18 +36,37 @@
                     alertas(data.msg, 'success')
                     let val = data.tipo_documento
                     let row = $(`#id_tipoDocumento_edit`).val()
-                    $(`[data-row="${row}"]`).html(`
-                    <td class="aling_btn_options">
-                            <button data-tipodocumento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button data-tipodocumento_id="${val.id} " type="button" class="btn delete_parameterization btn_modal_eliminar">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                        <td>${val.nombre}</td>
-                        <td>${val.created_at}</td>
-                    `);
+                    var table = $('#tablaDocumentos').DataTable();
+                    table.row(`[data-row="${row}"]`).remove().draw(false);
+                    let botones = `
+                    <button data-tipodocumento_id_edit="${data.tipo_documento.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button data-tipodocumento_id="${data.tipo_documento.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    `;
+
+                    let filaTabla = table.row.add( [
+                        botones,
+                        data.tipo_documento.nombre,
+                        data.tipo_documento.created_at,
+
+                    ] ).draw( );
+
+                    $(`button[data-tipodocumento_id_edit="${data.tipo_documento.id}"]`).parent().parent().attr('data-row',data.tipo_documento.id);
+                    // $(`[data-row="${row}"]`).html(`
+                    // <td class="aling_btn_options">
+                    //         <button data-tipodocumento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
+                    //             <i class="fas fa-edit"></i>
+                    //         </button>
+                    //         <button data-tipodocumento_id="${val.id} " type="button" class="btn delete_parameterization btn_modal_eliminar">
+                    //             <i class="fas fa-trash"></i>
+                    //         </button>
+                    //     </td>
+                    //     <td>${val.nombre}</td>
+                    //     <td>${val.created_at}</td>
+                    // `);
                 } else {
                     alertas(data.msg, 'error')
                 }

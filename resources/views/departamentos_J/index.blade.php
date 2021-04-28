@@ -49,17 +49,10 @@
     <!-- Inicio de tabla resposive -->
     <div class="row mt-5">
         <div class="col-10"></div>
-        <div class="col-2">
-            <span>Cantidad </span>
-            <select>
-                <option value="">10</option>
-                <option value="">25</option>
-                <option value="">50</option>
-            </select>
-        </div>
+        <div class="col-2"></div>
     </div>
     <div class="container table-responsive mt-1">
-        <table class="table table-bordered">
+        <table class="table table-bordered table_es">
             <thead>
                 <th>Opciones</th>
                 <th>Nombre</th>

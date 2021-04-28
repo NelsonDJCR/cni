@@ -26,6 +26,7 @@
 
   <script>
       $('body').on('click','.btn_eliminar_tipoDocumento',function() {
+
         $.post(
             "{{ route('tipoDocumento.destroy') }}",
             $('#eliminar_tipoDocumento').serialize()
@@ -34,7 +35,10 @@
             if(data.status == 200){
                 alertas(data.msg,'success')
                 let row = $(`#id_tipoDocumento`).val();
-                $(`[data-row="${row}"]`).remove();
+                
+                var table = $('#tablaDocumentos').DataTable();
+                table.row(`[data-row="${row}"]`).remove().draw( false );
+
             }else{
                 alertas(data.msg, 'error')
             }

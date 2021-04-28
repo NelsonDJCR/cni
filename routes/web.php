@@ -45,6 +45,7 @@ Route::post('/modal_crear_municipio',[MunicipioController::class,'modal_crear_mu
 Route::post('/crear_municipio',[MunicipioController::class,'store'])->name('municipío.store');
 Route::post('/editar_municipio',[MunicipioController::class, 'edit'])->name('municipio.edit');
 Route::post('/update_municipio',[MunicipioController::class, 'update'])->name('municipio.update');
+Route::post('buscar-municipio',[MunicipioController::class,'buscar_municipio'])->name('buscar_municipio');
 
 
 //--------------------------------------------------------------------------------------
