@@ -119,4 +119,18 @@ class DepartamentoController extends Controller
         return response()->json(['id' => $request->id]);
     }
 
+    public function buscar_departamento(Request $request)
+    {
+        // return response()->json(['status' => 200, 'msg' => $request->all()]);
+        $post = $request;
+        $departamento = Departamento::where('estado', 1)
+        ->where(function ($query) use ($post) {
+            if (isset($post['nombre_buscar'])) {
+                if (!empty($post['nombre_buscar']))
+                    $query->orwhere('departamento.nombre', 'like', "%" . $post['nombre_buscar'] . "%");
+            }
+        })->get();
+        return response()->json(['status' => 200, 'departamento' => $departamento]);
+    }
+
 }

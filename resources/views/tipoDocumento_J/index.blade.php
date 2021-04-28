@@ -130,8 +130,30 @@
                 "{{ route('buscar_tipoDocumento') }}",
                 $('#buscar_t_doc').serialize()
             ).done(function(data) {
-                console.log(data);
+                $('#ttipoDocumento * ').remove()
+                tabla(data)
+                console.log(data.tipoDocumento);
             })
         })
+
+
+        function tabla(data) {
+            var carguetabla = ''
+            $.each(data['tipoDocumento'], function(key, val) {
+                carguetabla += `<tr data-row="${val.id}">
+                    <td class="aling_btn_options">
+                        <button data-tipodocumento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button data-tipodocumento_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                    <td>${val.nombre}</td>
+                    <td>${val.created_at}</td>
+                </tr>`;
+            })
+            $('#ttipoDocumento').append(carguetabla)
+        }
     </script>
 @endsection

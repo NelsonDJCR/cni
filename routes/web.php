@@ -57,6 +57,7 @@ Route::post('/modal_creardepartamento',[DepartamentoController::class,'modal_cre
 Route::post('/crear_departamento',[DepartamentoController::class,'store'])->name('departamento.store');
 Route::post('/editar_departamento',[DepartamentoController::class, 'edit'])->name('departamento.edit');
 Route::post('/update_departamento',[DepartamentoController::class, 'update'])->name('departamento.update');
+Route::post('buscar-departamento',[DepartamentoController::class,'buscar_departamento'])->name('buscar_departamento');
 
 
 //--------------------------------------------------------------------------------------
