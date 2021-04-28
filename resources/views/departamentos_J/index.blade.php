@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-1 d-none d-xl-inline"></div>
                 <div class="col-md-3 col-sm-4 col-xl-3 col-12 mt-1">
-                    <button type="button" class="btn btn-block new_document modal_crear_municipio">Nuevo departamento</button>
+                    <button type="button" class="btn btn-block new_document modal_crear_departamento">Nuevo departamento</button>
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
         <div class="col-2"></div>
     </div>
     <div class="container table-responsive mt-1">
-        <table class="table table-bordered table_es">
+        <table class="table table-bordered table_es" id="tabladepartamentos">
             <thead>
                 <th>Opciones</th>
                 <th>Nombre</th>
@@ -60,7 +60,7 @@
             </thead>
             <tbody id="tdepartamento">
                 @foreach ($departamentos as $row)
-                <tr data-row="{{$row->id}}">
+                <tr>
                     <td class="aling_btn_options">
                         <button data-departamento_id_edit="{{ $row->id }}" type="button" class="btn update_parameterization modal_editar_departamento">
                             <i class="fas fa-edit"></i>
@@ -97,7 +97,7 @@
             })
         })
 
-        $('body').on('click','.modal_crear_municipio',function() {
+        $('body').on('click','.modal_crear_departamento',function() {
             $('#modal_crear_departamento').modal('show')
         })
 
@@ -108,6 +108,7 @@
                     id: $(this).data('departamento_id_edit')
                 }
             ).done(function(data) {
+                console.log(data);
                 let departamento = data.departamento
                 $('#nombre_departamento_edit').val(departamento.nombre)
                 $('#id_departamento_edit').val(departamento.id)
@@ -127,23 +128,40 @@
             })
         })
 
+        $('body').on('click','.btn_eliminar_departamento',function() {
+        $.post(
+            "{{ route('departamento.destroy') }}",
+            $('#eliminar_departamento').serialize()
+        ).done(function(data) {
+            console.log(data);
+            if(data.status == 200){
+                alertas(data.msg, 'success')
+                tabla(data)
+            }else{
+                alertas(data.msg, 'error')
+            }
+        })
+      })
+
         function tabla(data) {
-            var carguetabla = ''
-            $.each(data['departamento'], function(key, val) {
-                carguetabla += `<tr data-row="${val.id}">
-                    <td class="aling_btn_options">
-                        <button data-departamento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_departamento">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button data-departamento_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                    <td>${val.nombre}</td>
-                    <td>${val.created_at}</td>
-                </tr>`;
+            var table = $('#tabladepartamentos').DataTable();
+            $('#tabladepartamentos').DataTable().clear().draw();
+            $.each(data.departamento,function(key,val){
+                let botones = `
+                    <button data-departamento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button data-departamento_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar" seleccion="0" >
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    `;
+
+                    table.row.add( [
+                        botones,
+                        val.nombre,
+                        val.created_at,
+                    ] ).draw();
             })
-            $('#tdepartamento').append(carguetabla)
         }
     </script>
 @endsection

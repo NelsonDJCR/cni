@@ -43,7 +43,7 @@ class DepartamentoController extends Controller
         $departamento->nombre = $request->nombre;
         $departamento->usuario_creador = 1;
         if ($departamento->save()) :
-            return response()->json(['status' => 200, 'msg' => 'Departamento creado con éxito', 'tabla' => $departamento]);
+            return response()->json(['status' => 200, 'msg' => 'Departamento creado con éxito', 'departamento' => $departamento]);
         else :
             return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
         endif;
@@ -108,7 +108,7 @@ class DepartamentoController extends Controller
             return response()->json([
             'status' => 200,
             'msg' => 'departamento eliminado con éxito',
-            'tabla' => $departamentos
+            'departamento' => $departamentos
             ]);
         else:
             return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);

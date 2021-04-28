@@ -62,7 +62,7 @@
             </thead>
             <tbody id="ttipoDocumento">
                 @foreach ($tipoDocumento as $row)
-                    <tr data-row="{{ $row->id }}">
+                    <tr>
                         <td>
                             <button data-tipodocumento_id_edit="{{ $row->id }}" type="button"
                                 class="btn update_parameterization modal_editar_tipoDocumento">
@@ -80,16 +80,6 @@
             </tbody>
         </table>
     </div>
-
-
-    <style>
-        tbody>tr>td {
-            /* background: yellow; */
-            text-align: center;
-            /* border: 1px solid red; */
-        }
-
-    </style>
 
     @include('tipoDocumento_J.modals.modal_crear')
     @include('tipoDocumento_J.modals.modal_eliminar')
@@ -124,7 +114,6 @@
                     id: $(this).data('tipodocumento_id_edit')
                 }
             ).done(function(data) {
-                // console.log(data);
                 let tipoDocumento = data.tipoDocumento
                 $('#nombre_tipoDocumento_edit').val(tipoDocumento.nombre)
                 $('#id_tipoDocumento_edit').val(tipoDocumento.id)
@@ -147,21 +136,21 @@
         function tabla(data) {
             var table = $('#tablaDocumentos').DataTable();
             $('#tablaDocumentos').DataTable().clear().draw();
-            $.each(data.tipoDocumento,function(key,val){
+            $.each(data.tipoDocumento, function(key, val) {
                 let botones = `
-                    <button data-tipodocumento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button data-tipodocumento_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar" seleccion="0" >
-                        <i class="fas fa-trash"></i>
-                    </button>
-                    `;
+                        <button data-tipodocumento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button data-tipodocumento_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar" seleccion="0" >
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        `;
 
-                    table.row.add( [
-                        botones,
-                        val.nombre,
-                        val.created_at,
-                    ] ).draw();
+                table.row.add([
+                    botones,
+                    val.nombre,
+                    val.created_at,
+                ]).draw();
             })
         }
 
@@ -179,7 +168,6 @@
                 }
             })
         })
-
 
     </script>
 @endsection

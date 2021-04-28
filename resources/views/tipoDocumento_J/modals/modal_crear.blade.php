@@ -51,7 +51,7 @@
 
                     ] ).draw( );
 
-                    // $(`button[data-tipodocumento_id_edit="${data.tipo_documento.id}"]`).parent().parent().attr('data-row',data.tipo_documento.id);
+                    $(`button[data-tipodocumento_id_edit="${data.tipo_documento.id}"]`).parent().parent().attr('data-row',data.tipo_documento.id);
 
 
 

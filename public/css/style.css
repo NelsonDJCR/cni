@@ -26,6 +26,13 @@ body{
     box-shadow: 5px 5px 9px var(--gris_claro);
 }
 
+tbody>tr>td {
+    /* background: yellow; */
+    text-align: center;
+    /* border: 1px solid red; */
+}
+
+
 .title_parameterization h1,
 h2 {
     text-align: right;
