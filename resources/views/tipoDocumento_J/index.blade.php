@@ -19,7 +19,8 @@
                 </div>
                 <div class="col-1 d-none d-xl-inline"></div>
                 <div class="col-md-3 col-sm-4 col-xl-3 col-12 mt-1">
-                    <button type="button" class="btn btn-block new_document modal_crear_tipoDocumento">Nuevo documento</button>
+                    <button type="button" class="btn btn-block new_document modal_crear_tipoDocumento">Nuevo
+                        documento</button>
                 </div>
             </div>
         </div>
@@ -61,18 +62,20 @@
             </thead>
             <tbody id="ttipoDocumento">
                 @foreach ($tipoDocumento as $row)
-                <tr data-row="{{$row->id}}">
-                    <td>
-                        <button data-tipodocumento_id_edit="{{ $row->id }}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button data-tipodocumento_id="{{ $row->id }}" type="button" class="btn delete_parameterization btn_modal_eliminar">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                    <td>{{ $row->nombre }}</td>
-                    <td>{{ $row->created_at }}</td>
-                </tr>
+                    <tr data-row="{{ $row->id }}">
+                        <td>
+                            <button data-tipodocumento_id_edit="{{ $row->id }}" type="button"
+                                class="btn update_parameterization modal_editar_tipoDocumento">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button data-tipodocumento_id="{{ $row->id }}" type="button"
+                                class="btn delete_parameterization btn_modal_eliminar">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                        <td>{{ $row->nombre }}</td>
+                        <td>{{ $row->created_at }}</td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -80,11 +83,12 @@
 
 
     <style>
-        tbody > tr > td{
+        tbody>tr>td {
             /* background: yellow; */
             text-align: center;
             /* border: 1px solid red; */
         }
+
     </style>
 
     @include('tipoDocumento_J.modals.modal_crear')
@@ -95,9 +99,10 @@
 
 
     <script>
-        $('body').on('click','.btn_modal_eliminar',function() {
+        $('body').on('click', '.btn_modal_eliminar', function() {
+
             $.post(
-                "{{ route('modal_eliminar_tipoDocumento') }}",{
+                "{{ route('modal_eliminar_tipoDocumento') }}", {
                     _token: "{{ csrf_token() }}",
                     id: $(this).data('tipodocumento_id')
                 }
@@ -108,13 +113,13 @@
             })
         })
 
-        $('body').on('click','.modal_crear_tipoDocumento',function() {
+        $('body').on('click', '.modal_crear_tipoDocumento', function() {
             $('#modal_crear_tipoDocumento').modal('show')
         })
 
-        $('body').on('click','.modal_editar_tipoDocumento',function () {
+        $('body').on('click', '.modal_editar_tipoDocumento', function() {
             $.post(
-                "{{ route('tipoDocumento.edit') }}",{
+                "{{ route('tipoDocumento.edit') }}", {
                     _token: "{{ csrf_token() }}",
                     id: $(this).data('tipodocumento_id_edit')
                 }
@@ -127,7 +132,7 @@
             })
         })
 
-        $('body').on('click','.filtrar',function() {
+        $('body').on('click', '.filtrar', function() {
             $.post(
                 "{{ route('buscar_tipoDocumento') }}",
                 $('#buscar_t_doc').serialize()
@@ -140,22 +145,41 @@
 
 
         function tabla(data) {
-            var carguetabla = ''
-            $.each(data['tipoDocumento'], function(key, val) {
-                carguetabla += `<tr data-row="${val.id}">
-                    <td class="aling_btn_options">
-                        <button data-tipodocumento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button data-tipodocumento_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                    <td>${val.nombre}</td>
-                    <td>${val.created_at}</td>
-                </tr>`;
+            var table = $('#tablaDocumentos').DataTable();
+            $('#tablaDocumentos').DataTable().clear().draw();
+            $.each(data.tipoDocumento,function(key,val){
+                let botones = `
+                    <button data-tipodocumento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button data-tipodocumento_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar" seleccion="0" >
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    `;
+
+                    table.row.add( [
+                        botones,
+                        val.nombre,
+                        val.created_at,
+                    ] ).draw();
             })
-            $('#ttipoDocumento').append(carguetabla)
         }
+
+        $('body').on('click', '.btn_eliminar_tipoDocumento', function() {
+
+            $.post(
+                "{{ route('tipoDocumento.destroy') }}",
+                $('#eliminar_tipoDocumento').serialize()
+            ).done(function(data) {
+                if (data.status == 200) {
+                    alertas(data.msg, 'success')
+                    tabla(data)
+                } else {
+                    alertas(data.msg, 'error')
+                }
+            })
+        })
+
+
     </script>
 @endsection

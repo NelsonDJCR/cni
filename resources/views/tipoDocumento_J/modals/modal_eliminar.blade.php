@@ -25,23 +25,5 @@
   </div>
 
   <script>
-      $('body').on('click','.btn_eliminar_tipoDocumento',function() {
-
-        $.post(
-            "{{ route('tipoDocumento.destroy') }}",
-            $('#eliminar_tipoDocumento').serialize()
-        ).done(function(data) {
-            console.log(data);
-            if(data.status == 200){
-                alertas(data.msg,'success')
-                let row = $(`#id_tipoDocumento`).val();
-                
-                var table = $('#tablaDocumentos').DataTable();
-                table.row(`[data-row="${row}"]`).remove().draw( false );
-
-            }else{
-                alertas(data.msg, 'error')
-            }
-        })
-      })
+      
   </script>

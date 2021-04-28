@@ -121,7 +121,7 @@ class TipoDocumentoController extends Controller
             return response()->json([
             'status' => 200,
             'msg' => 'Documento eliminado con éxito',
-            'tabla' => $tipoDocumento
+            'tipoDocumento' => $tipoDocumento
             ]);
         else:
             return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
