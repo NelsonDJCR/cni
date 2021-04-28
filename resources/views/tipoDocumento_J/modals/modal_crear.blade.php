@@ -10,7 +10,7 @@
                     @csrf
                     <div class="mb-3">
                         <label for="nombre" class="col-form-label">Nombre del documento</label>
-                        <input type="text" class="form-control validar" id="nombre" name="nombre">
+                        <input type="text" class="form-control validar1" id="nombre" name="nombre">
                     </div>
                 </form>
             </div>
@@ -24,7 +24,7 @@
 
 <script>
     $('body').on('click', '.crear_tipoDocumento', function() {
-        if(obligatorio('validar')){
+        if(obligatorio('validar1')){
             $.post(
                 "{{ route('tipoDocumento.store') }}",
                 $('#crear_tipoDocumento').serialize()
@@ -42,9 +42,9 @@
     function aniadirATabla(data) {
         var carguetabla = ''
         let val = data['tipo_documento']
-        carguetabla += `<tr>
+        carguetabla += `<tr data-row="${val.id}">
                     <td class="aling_btn_options">
-                        <button data-tipodocumento_id_edit=" ${val.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
+                        <button data-tipodocumento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
                             <i class="fas fa-edit"></i>
                         </button>
                         <button data-tipodocumento_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">

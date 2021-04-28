@@ -120,7 +120,7 @@ class TipoDocumentoController extends Controller
             $tipoDocumento = TipoDocumento::where('estado',1)->get();
             return response()->json([
             'status' => 200,
-            'msg' => 'departamento eliminado con éxito',
+            'msg' => 'Documento eliminado con éxito',
             'tabla' => $tipoDocumento
             ]);
         else:

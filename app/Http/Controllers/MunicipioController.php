@@ -30,7 +30,9 @@ class MunicipioController extends Controller
             'municipio.created_at',
             'municipio.dep_id',
             DB::raw('departamento.nombre as dep_nombre'),
-    )->where('municipio.estado',1)->get();
+            DB::raw('departamento.estado as dep_estado'),
+    )->where('municipio.estado',1)
+    ->where('departamento.estado',1)->get();
         return view("municipios_J.index")
         ->with('municipios',$municipios)
         ->with('departamentos',$departamentos);

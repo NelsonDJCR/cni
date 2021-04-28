@@ -12,7 +12,7 @@
                     <input id="id_tipoDocumento_edit" class="validar" type="hidden" name="tipoDocumento_id" value="">
                     <div class="mb-3">
                         <label for="nombre_tipoDocumento_edit" class="col-form-label">Nombre de documento</label>
-                        <input type="text" class="form-control" id="nombre_tipoDocumento_edit" name="nombre_edit">
+                        <input type="text" class="form-control validar" id="nombre_tipoDocumento_edit" name="nombre_edit">
                     </div>
                 </form>
             </div>

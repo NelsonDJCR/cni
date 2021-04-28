@@ -10,7 +10,7 @@
                     @csrf
                     <div class="mb-3">
                         <label for="nombre" class="col-form-label">Nombre de departamento</label>
-                        <input type="text" class="form-control validar" id="nombre" name="nombre">
+                        <input type="text" class="form-control validar1" id="nombre" name="nombre">
                     </div>
                 </form>
             </div>
@@ -24,7 +24,7 @@
 
 <script>
     $('body').on('click', '.crear_departamento', function() {
-        if(obligatorio('validar')){
+        if(obligatorio('validar1')){
             $.post(
                 "{{ route('departamento.store') }}",
                 $('#crear_departamento').serialize()

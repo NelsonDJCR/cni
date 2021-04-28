@@ -11,7 +11,7 @@
                     <input id="id_departamento_edit" type="hidden" class="validar" name="departamento_id" value="">
                     <div class="mb-3">
                         <label for="nombre_departamento" class="col-form-label">Nombre de departamento</label>
-                        <input type="text" class="form-control" id="nombre_departamento_edit" name="nombre_edit">
+                        <input type="text" class="form-control validar" id="nombre_departamento_edit" name="nombre_edit">
                     </div>
                 </form>
             </div>
@@ -35,10 +35,10 @@
                 let row = $(`#id_departamento_edit`).val();
                     $(`[data-row="${row}"]`).html(`
                     <td class="aling_btn_options">
-                            <button data-municipio_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_municipio">
+                            <button data-departamento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_municipio">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button data-municipio_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
+                            <button data-departamento_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </td>

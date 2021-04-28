@@ -10,11 +10,11 @@
                     @csrf
                     <div class="mb-3">
                         <label for="nombre" class="col-form-label">Nombre de municipio</label>
-                        <input type="text" class="form-control validar" id="nombre" name="nombre">
+                        <input type="text" class="form-control validar1" id="nombre" name="nombre">
                     </div>
                     <div class="mb-3">
                         <label for="message-text" class="col-form-label">Departamento </label>
-                        <select name="dep_id" id="" class="form-select validar">
+                        <select name="dep_id" id="" class="form-select validar1">
                             <option value="">Selecciona</option>
                             @foreach ($departamentos as $row)
                                 <option value="{{ $row->id }}">{{ $row->nombre }}</option>
@@ -34,7 +34,7 @@
 <script>
     $('body').on('click', '.crear_municipio', function() {
 
-        if(obligatorio('validar')){
+        if(obligatorio('validar1')){
             $.post(
                 "{{ route('municipío.store') }}",
                 $('#crear_municipio').serialize()
@@ -53,9 +53,9 @@
         var carguetabla = ''
         let val = data['tabla']
         let departamento = data['departamento']
-        carguetabla += `<tr>
+        carguetabla += `<tr data-row="${val.id}">
                     <td class="aling_btn_options">
-                        <button type="button" class="btn update_parameterization">
+                        <button data-municipio_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_municipio">
                             <i class="fas fa-edit"></i>
                         </button>
                         <button data-municipio_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
