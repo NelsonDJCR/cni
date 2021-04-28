@@ -43,8 +43,7 @@ class DepartamentoController extends Controller
         $departamento->nombre = $request->nombre;
         $departamento->usuario_creador = 1;
         if ($departamento->save()) :
-            $departamento = Departamento::find($departamento->dep_id);
-            return response()->json(['status' => 200, 'msg' => 'municipio creado con éxito', 'tabla' => $departamento]);
+            return response()->json(['status' => 200, 'msg' => 'Departamento creado con éxito', 'tabla' => $departamento]);
         else :
             return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
         endif;
@@ -86,7 +85,7 @@ class DepartamentoController extends Controller
         $departamento = Departamento::find($request->departamento_id);
         $departamento->nombre = $request->nombre_edit;
         if($departamento->save()):
-            return response()->json(['status' => 200, 'msg' => 'editado correctamente', 'tabla' => $departamento]);
+            return response()->json(['status' => 200, 'msg' => 'editado correctamente', 'departamento' => $departamento]);
         else:
             return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
         endif;
@@ -118,6 +117,20 @@ class DepartamentoController extends Controller
 
     public function modal_eliminar_departamento(Request $request){
         return response()->json(['id' => $request->id]);
+    }
+
+    public function buscar_departamento(Request $request)
+    {
+        // return response()->json(['status' => 200, 'msg' => $request->all()]);
+        $post = $request;
+        $departamento = Departamento::where('estado', 1)
+        ->where(function ($query) use ($post) {
+            if (isset($post['nombre_buscar'])) {
+                if (!empty($post['nombre_buscar']))
+                    $query->orwhere('departamento.nombre', 'like', "%" . $post['nombre_buscar'] . "%");
+            }
+        })->get();
+        return response()->json(['status' => 200, 'departamento' => $departamento]);
     }
 
 }

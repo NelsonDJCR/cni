@@ -20,6 +20,20 @@ class TipoDocumentoController extends Controller
             ->with('tipoDocumento', $tipoDocumento);
     }
 
+    public function buscar_tipoDocumento(Request $request)
+    {
+        // return response()->json(['status' => 200, 'msg' => $request->all()]);
+        $post = $request;
+        $tipoDocumento = TipoDocumento::where('estado', 1)
+        ->where(function ($query) use ($post) {
+            if (isset($post['nombre_buscar'])) {
+                if (!empty($post['nombre_buscar']))
+                    $query->orwhere('tipo_documento.nombre', 'like', "%" . $post['nombre_buscar'] . "%");
+            }
+        })->get();
+        return response()->json(['status' => 200, 'tipoDocumento' => $tipoDocumento]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -42,8 +56,7 @@ class TipoDocumentoController extends Controller
         $tipoDocumento->nombre = $request->nombre;
         $tipoDocumento->usuario_creador = 1;
         if ($tipoDocumento->save()) :
-            $tipoDocumento = TipoDocumento::find($tipoDocumento->dep_id);
-            return response()->json(['status' => 200, 'msg' => 'Documento creado con éxito', 'tabla' => $tipoDocumento]);
+            return response()->json(['status' => 200, 'msg' => 'Documento creado con éxito', 'tipo_documento' => $tipoDocumento]);
         else :
             return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
         endif;
@@ -85,7 +98,7 @@ class TipoDocumentoController extends Controller
         $tipoDocumento = TipoDocumento::find($request->tipoDocumento_id);
         $tipoDocumento->nombre = $request->nombre_edit;
         if($tipoDocumento->save()):
-            return response()->json(['status' => 200, 'msg' => 'editado correctamente', 'tabla' => $tipoDocumento]);
+            return response()->json(['status' => 200, 'msg' => 'editado correctamente', 'tipo_documento' => $tipoDocumento]);
         else:
             return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
         endif;
@@ -107,7 +120,7 @@ class TipoDocumentoController extends Controller
             $tipoDocumento = TipoDocumento::where('estado',1)->get();
             return response()->json([
             'status' => 200,
-            'msg' => 'departamento eliminado con éxito',
+            'msg' => 'Documento eliminado con éxito',
             'tabla' => $tipoDocumento
             ]);
         else:

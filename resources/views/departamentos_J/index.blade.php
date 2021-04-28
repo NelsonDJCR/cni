@@ -31,12 +31,15 @@
         <div class="col-sm-1"></div>
         <div class="col-sm-5 col-md-4 col-xl-3">
             <div class="form-group form_configure">
-                <label for="name">Nombre</label>
-                <input type="text" class="form-control" id="name">
+                <form id="buscar_departamento">
+                    @csrf
+                    <label for="name">Nombre</label>
+                    <input type="text" class="form-control" id="name" name="nombre_buscar">
+                </form>
             </div>
         </div>
         <div class="col-sm-3 col-md-3 mt-4 col-xl-2">
-            <button class="btn btn-block search_parameterization">Buscar</button>
+            <button class="btn btn-block search_parameterization filtrar">Buscar</button>
         </div>
         <div class="col-7 col-sm-4 col-md-5 col-xl-6"></div>
     </div>
@@ -60,12 +63,11 @@
             <thead>
                 <th>Opciones</th>
                 <th>Nombre</th>
-                {{-- <th>Departamento</th> --}}
                 <th>Fecha registro</th>
             </thead>
             <tbody id="tdepartamento">
                 @foreach ($departamentos as $row)
-                <tr>
+                <tr data-row="{{$row->id}}">
                     <td class="aling_btn_options">
                         <button data-departamento_id_edit="{{ $row->id }}" type="button" class="btn update_parameterization modal_editar_departamento">
                             <i class="fas fa-edit"></i>
@@ -75,7 +77,6 @@
                         </button>
                     </td>
                     <td>{{ $row->nombre }}</td>
-                    {{-- <td>{{ $row->dep_nombre }}</td> --}}
                     <td>{{ $row->created_at }}</td>
                 </tr>
                 @endforeach
@@ -120,5 +121,36 @@
                 $('#modal_edit_departamento').modal('show')
             })
         })
+
+        $('body').on('click','.filtrar',function() {
+            // alert('llego')
+            $.post(
+                "{{ route('buscar_departamento') }}",
+                $('#buscar_departamento').serialize()
+            ).done(function(data) {
+                console.log(data);
+                $('#tdepartamento * ').remove()
+                tabla(data)
+            })
+        })
+
+        function tabla(data) {
+            var carguetabla = ''
+            $.each(data['departamento'], function(key, val) {
+                carguetabla += `<tr data-row="${val.id}">
+                    <td class="aling_btn_options">
+                        <button data-departamento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_departamento">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button data-departamento_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                    <td>${val.nombre}</td>
+                    <td>${val.created_at}</td>
+                </tr>`;
+            })
+            $('#tdepartamento').append(carguetabla)
+        }
     </script>
 @endsection

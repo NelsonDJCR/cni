@@ -31,7 +31,7 @@ Route::post('/view-documents', [CabildosController::class,'viewDocuments']);
 Route::get('/uploads/{file}',[CabildosController::class,'downloadFile']);
 Route::get('/report-cabildos', [CabildosController::class,'reportSessions']);
 Route::get('/list-cabildos',[CabildosController::class,'list']);
-    
+
 
 
 //--------------------------------------------------------------------------------------
@@ -58,6 +58,7 @@ Route::post('/modal_creardepartamento',[DepartamentoController::class,'modal_cre
 Route::post('/crear_departamento',[DepartamentoController::class,'store'])->name('departamento.store');
 Route::post('/editar_departamento',[DepartamentoController::class, 'edit'])->name('departamento.edit');
 Route::post('/update_departamento',[DepartamentoController::class, 'update'])->name('departamento.update');
+Route::post('buscar-departamento',[DepartamentoController::class,'buscar_departamento'])->name('buscar_departamento');
 
 
 //--------------------------------------------------------------------------------------
@@ -71,3 +72,4 @@ Route::post('/modal_creartipoDocumento',[TipoDocumentoController::class,'modal_c
 Route::post('/crear_tipoDocumento',[TipoDocumentoController::class,'store'])->name('tipoDocumento.store');
 Route::post('/editar_tipoDocumento',[TipoDocumentoController::class, 'edit'])->name('tipoDocumento.edit');
 Route::post('/update_tipoDocumento',[TipoDocumentoController::class, 'update'])->name('tipoDocumento.update');
+Route::post('buscar-tipoDocumento',[TipoDocumentoController::class,'buscar_tipoDocumento'])->name('buscar_tipoDocumento');

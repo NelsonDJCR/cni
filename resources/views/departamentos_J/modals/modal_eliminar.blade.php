@@ -32,7 +32,9 @@
         ).done(function(data) {
             console.log(data);
             if(data.status == 200){
-                alert(data.msg)
+                alertas(data.msg, 'success')
+                let row = $(`#id_departamento`).val();
+                $(`[data-row="${row}"]`).remove();
                 $('#departamento * ').remove()
                 tabla(data)
             }else{

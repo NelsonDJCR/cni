@@ -9,6 +9,7 @@
             <span>Veedurías/Parametrización/Tipos de documento</span>
         </div>
     </div>
+
     <div class="row mt-0">
         <div class="col-md-1 col-1"></div>
         <div class="col-md-10 col-10 title_parameterization">
@@ -32,11 +33,14 @@
         <div class="col-sm-5 col-md-4 col-xl-3">
             <div class="form-group form_configure">
                 <label for="name">Nombre</label>
-                <input type="text" class="form-control" id="name">
+                <form id="buscar_t_doc">
+                    @csrf
+                    <input type="text" class="form-control" id="name" name="nombre_buscar">
+                </form>
             </div>
         </div>
         <div class="col-sm-3 col-md-3 mt-4 col-xl-2">
-            <button class="btn btn-block search_parameterization">Buscar</button>
+            <button class="btn btn-block search_parameterization filtrar">Buscar</button>
         </div>
         <div class="col-7 col-sm-4 col-md-5 col-xl-6"></div>
     </div>
@@ -49,9 +53,9 @@
         <div class="col-2">
             <span>Cantidad </span>
             <select>
-                <option value="">10</option>
-                <option value="">25</option>
-                <option value="">50</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
             </select>
         </div>
     </div>
@@ -64,7 +68,7 @@
             </thead>
             <tbody id="ttipoDocumento">
                 @foreach ($tipoDocumento as $row)
-                <tr>
+                <tr data-row="{{$row->id}}">
                     <td class="aling_btn_options">
                         <button data-tipodocumento_id_edit="{{ $row->id }}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
                             <i class="fas fa-edit"></i>
@@ -120,5 +124,36 @@
                 $('#modal_edit_tipoDocumento').modal('show')
             })
         })
+
+        $('body').on('click','.filtrar',function() {
+            $.post(
+                "{{ route('buscar_tipoDocumento') }}",
+                $('#buscar_t_doc').serialize()
+            ).done(function(data) {
+                $('#ttipoDocumento * ').remove()
+                tabla(data)
+                console.log(data.tipoDocumento);
+            })
+        })
+
+
+        function tabla(data) {
+            var carguetabla = ''
+            $.each(data['tipoDocumento'], function(key, val) {
+                carguetabla += `<tr data-row="${val.id}">
+                    <td class="aling_btn_options">
+                        <button data-tipodocumento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button data-tipodocumento_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                    <td>${val.nombre}</td>
+                    <td>${val.created_at}</td>
+                </tr>`;
+            })
+            $('#ttipoDocumento').append(carguetabla)
+        }
     </script>
 @endsection

@@ -8,10 +8,10 @@
             <div class="modal-body">
                 <form id="editar_departamento">
                     @csrf
-                    <input id="id_departamento_edit" type="hidden" name="departamento_id" value="">
+                    <input id="id_departamento_edit" type="hidden" class="validar" name="departamento_id" value="">
                     <div class="mb-3">
                         <label for="nombre_departamento" class="col-form-label">Nombre de departamento</label>
-                        <input type="text" class="form-control" id="nombre_departamento_edit" name="nombre_edit">
+                        <input type="text" class="form-control validar" id="nombre_departamento_edit" name="nombre_edit">
                     </div>
                 </form>
             </div>
@@ -25,12 +25,28 @@
 
 <script>
     $('body').on('click', '.editar_departamento', function() {
-        $.post(
-            "{{ route('departamento.update') }}",
-            $('#editar_departamento').serialize()
-        ).done(function(data) {
-            console.log(data);
-        })
+        if(obligatorio('validar')){
+            $.post(
+                "{{ route('departamento.update') }}",
+                $('#editar_departamento').serialize()
+            ).done(function(data) {
+                alertas(data.msg, 'success')
+                let val = data.departamento
+                let row = $(`#id_departamento_edit`).val();
+                    $(`[data-row="${row}"]`).html(`
+                    <td class="aling_btn_options">
+                            <button data-departamento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_municipio">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button data-departamento_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                        <td>${val.nombre}</td>
+                        <td>${val.created_at}</td>
+                    `);
+            })
+        }
     })
 
 </script>
