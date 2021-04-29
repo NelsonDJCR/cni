@@ -15,8 +15,8 @@
                 <input id="id_municipio" type="hidden" name="municipio_id">
             </form>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-danger btn_eliminar_municipio">Eliminar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger btn_eliminar_municipio">Si</button>
             </div>
         </div>
     </div>

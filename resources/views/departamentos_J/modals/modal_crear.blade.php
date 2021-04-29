@@ -32,6 +32,7 @@
             ).done(function(data) {
                 if (data.status == 200) {
                     console.log(data);
+                    setTimeout(function(){ $('#modal_crear_departamento').modal('hide');},500);
                     alertas(data.msg, 'success')
 
                     var table = $('#tabladepartamentos').DataTable();
@@ -51,7 +52,7 @@
                         data.departamento.created_at,
 
                     ]).draw();
-
+                    // $('#modal_crear_departamento').hide()
 
                 } else {
                     alertas(data.msg, 'error')
@@ -59,23 +60,5 @@
             })
         }
     })
-
-    function aniadirATabla(data) {
-        var carguetabla = ''
-        let val = data['tabla']
-        carguetabla += `<tr data-row="${val.id}">
-                    <td class="aling_btn_options">
-                        <button data-departamento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_departamento">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button data-departamento_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                    <td>${val.nombre}</td>
-                    <td>${val.created_at}</td>
-                </tr>`
-        $('#tdepartamento').append(carguetabla)
-    }
 
 </script>

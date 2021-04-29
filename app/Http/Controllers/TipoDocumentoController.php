@@ -56,7 +56,7 @@ class TipoDocumentoController extends Controller
         $tipoDocumento->nombre = $request->nombre;
         $tipoDocumento->usuario_creador = 1;
         if ($tipoDocumento->save()) :
-            return response()->json(['status' => 200, 'msg' => 'Documento creado con éxito', 'tipo_documento' => $tipoDocumento]);
+            return response()->json(['status' => 200, 'msg' => 'Tipo de archivo creado con éxito', 'tipo_documento' => $tipoDocumento]);
         else :
             return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
         endif;
@@ -98,7 +98,8 @@ class TipoDocumentoController extends Controller
         $tipoDocumento = TipoDocumento::find($request->tipoDocumento_id);
         $tipoDocumento->nombre = $request->nombre_edit;
         if($tipoDocumento->save()):
-            return response()->json(['status' => 200, 'msg' => 'editado correctamente', 'tipo_documento' => $tipoDocumento]);
+            $tipoDocumento = TipoDocumento::where('estado',1)->get();
+            return response()->json(['status' => 200, 'msg' => 'editado correctamente', 'tipoDocumento' => $tipoDocumento]);
         else:
             return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
         endif;
@@ -120,7 +121,7 @@ class TipoDocumentoController extends Controller
             $tipoDocumento = TipoDocumento::where('estado',1)->get();
             return response()->json([
             'status' => 200,
-            'msg' => 'Documento eliminado con éxito',
+            'msg' => 'Tipo de archivo eliminado con éxito',
             'tipoDocumento' => $tipoDocumento
             ]);
         else:

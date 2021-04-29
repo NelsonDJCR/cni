@@ -70,7 +70,7 @@
                     <div class="row ">
                         <label for="" class="form-label"><b>Tipo de documento </b></label>
                         <select class="form-select" name="type_file">
-                            <option value="0" selected disabled></option>
+                            <option value="">::Selecciona::</option>
                             @foreach ($type_file as $i)
                                 <option value="{{ $i->id }}">{{ $i->nombre }}</option>
                             @endforeach

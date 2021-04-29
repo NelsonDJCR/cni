@@ -2,10 +2,7 @@
 
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\MunicipioController;
-use App\Http\Controllers\TipoArchivoController;
 use App\Http\Controllers\TipoDocumentoController;
-use App\Models\Departamento;
-use App\Models\TipoArchivo;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CabildosController;
 use App\Http\Controllers\ReportController;
@@ -79,7 +76,7 @@ Route::post('buscar-departamento',[DepartamentoController::class,'buscar_departa
 // Rutas para tipos de documento
 //--------------------------------------------------------------------------------------
 
-Route::get('/tipos-de-documento',[TipoDocumentoController::class, 'index']);
+Route::get('/tipos-de-archivo',[TipoDocumentoController::class, 'index']);
 Route::post('modal_eliminar_tipoDocumento',[TipoDocumentoController::class,'modal_eliminar_tipoDocumento'])->name('modal_eliminar_tipoDocumento');
 Route::post('eliminar_tipoDocumento',[TipoDocumentoController::class,'destroy'])->name('tipoDocumento.destroy');
 Route::post('/modal_creartipoDocumento',[TipoDocumentoController::class,'modal_crear_municipio'])->name('modal_crear_tipoDocumento');

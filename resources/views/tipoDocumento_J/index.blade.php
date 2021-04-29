@@ -4,11 +4,11 @@
     <!-- Inicio de título y crear documento -->
 
     <div class="container mt-5">
-        <label for="" class="p-2">Veedurías/Parametrización/Tipos de documento</label>
+        <label for="" class="p-2">Veedurías/Parametrización/Tipos de archivo</label>
         <div class="row p-2 text-center border shadow">
             <div class="row">
                 <div class="col-12 col-md-12 col-lg-10 col-xl-9 p-2">
-                    <h1 class="text-blue "> <b>TIPOS DE DOCUMENTOS</b> </h1>
+                    <h1 class="text-blue "> <b>TIPOS DE ARCHIVO</b> </h1>
                 </div>
                 <div class='col-12 col-md-12 col-lg-2 col-xl-3 p-2'>
                     <button type="button"
@@ -91,13 +91,13 @@
                     id: $(this).data('tipodocumento_id')
                 }
             ).done(function(data) {
-                console.log(data);
                 $('#id_tipoDocumento').val(data.id)
                 $('#modal_eliminar_tipoDocumento').modal('show')
             })
         })
 
         $('body').on('click', '.modal_crear_tipoDocumento', function() {
+            $('#nombre').val('')
             $('#modal_crear_tipoDocumento').modal('show')
         })
 
@@ -155,6 +155,7 @@
                 $('#eliminar_tipoDocumento').serialize()
             ).done(function(data) {
                 if (data.status == 200) {
+                    setTimeout(function(){ $('#modal_eliminar_tipoDocumento').modal('hide');},500);
                     alertas(data.msg, 'success')
                     tabla(data)
                 } else {

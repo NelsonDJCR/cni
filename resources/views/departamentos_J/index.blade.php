@@ -96,6 +96,8 @@
         })
 
         $('body').on('click', '.modal_crear_departamento', function() {
+            $('#nombre').val('')
+            // $('#seleccionar_crear').selected('selecciona')
             $('#modal_crear_departamento').modal('show')
         })
 
@@ -132,6 +134,7 @@
             ).done(function(data) {
                 console.log(data);
                 if (data.status == 200) {
+                    setTimeout(function(){ $('#modal_eliminar_departamento').modal('hide');},500);
                     alertas(data.msg, 'success')
                     tabla(data)
                 } else {
