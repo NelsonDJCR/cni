@@ -13,9 +13,9 @@
                         <input type="text" class="form-control validar1" id="nombre" name="nombre">
                     </div>
                     <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Departamento </label>
-                        <select name="dep_id" id="" class="form-select validar1">
-                            <option value="">Selecciona</option>
+                        <label for="seleccionar_crear" class="col-form-label">Departamento </label>
+                        <select name="dep_id" id="seleccionar_crear" class="form-select validar1">
+                            <option value="" selected>Selecciona</option>
                             @foreach ($departamentos as $row)
                                 <option value="{{ $row->id }}">{{ $row->nombre }}</option>
                             @endforeach
@@ -40,7 +40,7 @@
                 $('#crear_municipio').serialize()
             ).done(function(data) {
                 if (data.status == 200) {
-                    console.log(data);
+                    setTimeout(function(){ $('#modal_crear_municipio').modal('hide');},500);
                     alertas(data.msg, 'success')
                     var table = $('#tablamunicipios').DataTable();
                     let botones = `

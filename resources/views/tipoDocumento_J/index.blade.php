@@ -91,13 +91,13 @@
                     id: $(this).data('tipodocumento_id')
                 }
             ).done(function(data) {
-                console.log(data);
                 $('#id_tipoDocumento').val(data.id)
                 $('#modal_eliminar_tipoDocumento').modal('show')
             })
         })
 
         $('body').on('click', '.modal_crear_tipoDocumento', function() {
+            $('#nombre').val('')
             $('#modal_crear_tipoDocumento').modal('show')
         })
 
@@ -155,6 +155,7 @@
                 $('#eliminar_tipoDocumento').serialize()
             ).done(function(data) {
                 if (data.status == 200) {
+                    setTimeout(function(){ $('#modal_eliminar_tipoDocumento').modal('hide');},500);
                     alertas(data.msg, 'success')
                     tabla(data)
                 } else {

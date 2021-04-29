@@ -33,28 +33,30 @@
                 $('#editar_tipoDocumento').serialize()
             ).done(function(data) {
                 if (data.status == 200) {
+                    setTimeout(function(){ $('#modal_edit_tipoDocumento').modal('hide');},500);
                     alertas(data.msg, 'success')
-                    let val = data.tipo_documento
-                    let row = $(`#id_tipoDocumento_edit`).val()
-                    var table = $('#tablaDocumentos').DataTable();
-                    table.row(`[data-row="${row}"]`).remove().draw(false);
-                    let botones = `
-                    <button data-tipodocumento_id_edit="${data.tipo_documento.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button data-tipodocumento_id="${data.tipo_documento.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                    `;
+                    tabla(data)
+                    // let val = data.tipo_documento
+                    // let row = $(`#id_tipoDocumento_edit`).val()
+                    // var table = $('#tablaDocumentos').DataTable();
+                    // table.row(`[data-row="${row}"]`).remove().draw(false);
+                    // let botones = `
+                    // <button data-tipodocumento_id_edit="${data.tipo_documento.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
+                    //     <i class="fas fa-edit"></i>
+                    // </button>
+                    // <button data-tipodocumento_id="${data.tipo_documento.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
+                    //     <i class="fas fa-trash"></i>
+                    // </button>
+                    // `;
 
-                    let filaTabla = table.row.add( [
-                        botones,
-                        data.tipo_documento.nombre,
-                        data.tipo_documento.created_at,
+                    // let filaTabla = table.row.add( [
+                    //     botones,
+                    //     data.tipo_documento.nombre,
+                    //     data.tipo_documento.created_at,
 
-                    ] ).draw( );
+                    // ] ).draw( );
 
-                    $(`button[data-tipodocumento_id_edit="${data.tipo_documento.id}"]`).parent().parent().attr('data-row',data.tipo_documento.id);
+                    // $(`button[data-tipodocumento_id_edit="${data.tipo_documento.id}"]`).parent().parent().attr('data-row',data.tipo_documento.id);
                 } else {
                     alertas(data.msg, 'error')
                 }

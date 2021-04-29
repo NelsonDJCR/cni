@@ -2,10 +2,7 @@
 
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\MunicipioController;
-use App\Http\Controllers\TipoArchivoController;
 use App\Http\Controllers\TipoDocumentoController;
-use App\Models\Departamento;
-use App\Models\TipoArchivo;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CabildosController;
 use App\Http\Controllers\ReportController;

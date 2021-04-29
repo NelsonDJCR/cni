@@ -30,6 +30,7 @@
                 $('#crear_tipoDocumento').serialize()
             ).done(function(data) {
                 if (data.status == 200) {
+                    setTimeout(function(){ $('#modal_crear_tipoDocumento').modal('hide');},500);
                     alertas(data.msg, 'success')
                     // aniadirATabla(data)
 
@@ -43,44 +44,16 @@
                         <i class="fas fa-trash"></i>
                     </button>
                     `;
-
                     let filaTabla = table.row.add( [
                         botones,
                         data.tipo_documento.nombre,
                         data.tipo_documento.created_at,
-
                     ] ).draw( );
-
                     $(`button[data-tipodocumento_id_edit="${data.tipo_documento.id}"]`).parent().parent().attr('data-row',data.tipo_documento.id);
-
-
-
                 } else {
                     alertas(data.msg, 'error')
                 }
             })
         }
     });
-
-
-
-
-    // function aniadirATabla(data) {
-    //     var carguetabla = ''
-    //     let val = data['tipo_documento']
-    //     carguetabla += `<tr data-row="${val.id}">
-    //                 <td class="aling_btn_options">
-    //                     <button data-tipodocumento_id_edit="${val.id}" type="button" class="btn update_parameterization modal_editar_tipoDocumento">
-    //                         <i class="fas fa-edit"></i>
-    //                     </button>
-    //                     <button data-tipodocumento_id="${val.id}" type="button" class="btn delete_parameterization btn_modal_eliminar">
-    //                         <i class="fas fa-trash"></i>
-    //                     </button>
-    //                 </td>
-    //                 <td>${val.nombre}</td>
-    //                 <td>${val.created_at}</td>
-    //             </tr>`
-    //     $('#ttipoDocumento').append(carguetabla)
-    // }
-
 </script>

@@ -98,7 +98,8 @@ class TipoDocumentoController extends Controller
         $tipoDocumento = TipoDocumento::find($request->tipoDocumento_id);
         $tipoDocumento->nombre = $request->nombre_edit;
         if($tipoDocumento->save()):
-            return response()->json(['status' => 200, 'msg' => 'editado correctamente', 'tipo_documento' => $tipoDocumento]);
+            $tipoDocumento = TipoDocumento::where('estado',1)->get();
+            return response()->json(['status' => 200, 'msg' => 'editado correctamente', 'tipoDocumento' => $tipoDocumento]);
         else:
             return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
         endif;

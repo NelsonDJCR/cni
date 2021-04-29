@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departamento;
+use App\Models\Municipio;
 use Illuminate\Http\Request;
 
 use function GuzzleHttp\Promise\all;
@@ -85,6 +86,7 @@ class DepartamentoController extends Controller
         $departamento = Departamento::find($request->departamento_id);
         $departamento->nombre = $request->nombre_edit;
         if($departamento->save()):
+            $departamento = Departamento::where('estado',1)->get();
             return response()->json(['status' => 200, 'msg' => 'editado correctamente', 'departamento' => $departamento]);
         else:
             return response()->json(['status' => 500, 'msg' => 'Algo salió mal']);
@@ -104,6 +106,11 @@ class DepartamentoController extends Controller
         $departamento = Departamento::find($id);
         $departamento->estado = 3;
         if($departamento->save()):
+            $municipios = Municipio::where('dep_id',$departamento->id)->get();
+            foreach ($municipios as $row ) {
+                    $row->estado = 3;
+                    $row->save();
+            }
             $departamentos = Departamento::where('estado',1)->get();
             return response()->json([
             'status' => 200,

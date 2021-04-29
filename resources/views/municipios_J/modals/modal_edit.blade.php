@@ -41,6 +41,7 @@
                 $('#editar_municipio').serialize()
             ).done(function(data) {
                 if(data.status == 200){
+                    setTimeout(function(){ $('#modal_edit_municipio').modal('hide');},500);
                     alertas(data.msg, 'success')
                     tabla(data)
                 }else{

@@ -99,6 +99,9 @@
         })
 
         $('body').on('click', '.modal_crear_municipio', function() {
+            $('#nombre').val('')
+            $('#seleccionar_crear option').removeAttr('selected')
+            $(`#seleccionar_crear option[value=""]`).attr('selected','selected')
             $('#modal_crear_municipio').modal('show')
         })
 
@@ -137,6 +140,7 @@
                 console.log(data);
                 if (data.status == 200) {
                     console.log(data);
+                    setTimeout(function(){ $('#modal_eliminar_municipio').modal('hide');},500);
                     alertas(data.msg, 'success')
                     tabla(data)
                     // let row = $(`#id_municipio`).val();
