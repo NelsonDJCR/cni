@@ -16,9 +16,9 @@ class CabildosController extends Controller
     public function getIndex()
     {
         return view('sessions.new-sesion')
-            ->with('type_file', TipoDocumento::all())
-            ->with('municipios', Municipio::all())
-            ->with('departament', Departamento::all());
+            ->with('type_file', TipoDocumento::where('estado',1)->get())
+            ->with('municipios', Municipio::where('estado',1)->get())
+            ->with('departament', Departamento::where('estado',1)->get());
     }
 
     public function save(Request $r)

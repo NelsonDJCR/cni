@@ -9,16 +9,15 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          ¿Estás seguro de eliminar?
-          Al hacerlo también eliminarás todos los documentos de este tipo
+          ¿Estás seguro de eliminar el tipo de documento?
         </div>
         <form id="eliminar_tipoDocumento">
             @csrf
             <input id="id_tipoDocumento" type="hidden" name="tipoDocumento_id">
         </form>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-danger btn_eliminar_tipoDocumento">Eliminar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-danger btn_eliminar_tipoDocumento">Si</button>
         </div>
       </div>
     </div>

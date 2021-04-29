@@ -45,11 +45,11 @@
                     <label for="" class="form-label"><b>Fecha</b></label>
                     <input type="date" class="form-control" id="" value="{{(isset($post['fecha_realizacion'])?$post['fecha_realizacion']:'')}}" name="fecha_realizacion">
                 </div>
+                <div class="mb-3 col-3">
+                    <button class="btn-general btn">Buscar</button>
+                </div>
             </div>
         </form>
-    </div>
-    <div class="row mt-2 ">
-        <button class="btn-general btn ">Buscar</button>
     </div>
 
     <div class="container mb-4">
@@ -82,7 +82,7 @@
             </tbody>
         </table>
     </div>
-  
+
     <style>
         .w-100px {
             width: 70px;

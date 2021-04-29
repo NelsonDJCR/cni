@@ -34,10 +34,11 @@
                     <label for="" class="form-label"><b>Fecha</b></label>
                     <input type="date" class="form-control" id="" value="{{(isset($post['fecha_realizacion'])?$post['fecha_realizacion']:'')}}" name="fecha_realizacion">
                 </div>
-            </div>
-                <div class="row mt-2 col-3">
+                <div class="mb-3 col-3">
+                    <label for="">&nbsp;</label><br>
                     <button class="btn-general btn w-80 btn_search">Buscar</button>
                 </div>
+            </div>
             </div>
         </form>
     </div>
@@ -78,7 +79,7 @@
         </table>
     </div>
     @include('modals.download')
-    
+
     <script>
         $(".btn_search").click(function() {
             $("#filter_list").attr('action','/list-cabildos')
