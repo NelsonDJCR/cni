@@ -23,17 +23,21 @@
                 </div>
                 <div class="mb-3 col-3">
                     <label for="" class="form-label"><b>Departamento</b></label>
-                    <select class="form-control " name="dep_id">
-                        <option selected disabled></option>
+                    <select class="form-select" name="dep_id">
+                        <option value="">Selecciona</option>
                         @foreach ($departments as $i)
                             <option value="{{ $i->id }}" {{(isset($post['dep_id'])?($post['dep_id']==$i->id?'selected':''):'')}}>{{ $i->nombre }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="mb-3 col-3">
-                    <label for="" class="form-label"><b>Fecha</b></label>
+                    <label for="" class="form-label"><b>Fecha desde</b></label>
                     <input type="date" class="form-control" id="" value="{{(isset($post['fecha_realizacion'])?$post['fecha_realizacion']:'')}}" name="fecha_realizacion">
                 </div>
+                {{-- <div class="mb-3 col-3">
+                    <label for="" class="form-label"><b>Fecha hasta</b></label>
+                    <input type="date" class="form-control" id="" value="{{(isset($post['fecha_realizacion'])?$post['fecha_realizacion']:'')}}" name="fecha_realizacion">
+                </div> --}}
                 <div class="mb-3 col-3">
                     <label for="">&nbsp;</label><br>
                     <button class="btn-general btn w-80 btn_search">Buscar</button>

@@ -224,6 +224,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: var(--blanco);
     width: 250px;
 }
+
+.btn-general_ajax{
+    background: var(--azul_oscuro);
+    color: var(--blanco);
+    width: 250px;
+}
 .btn-more{
     background: var(--azul_oscuro);
     color: var(--blanco)

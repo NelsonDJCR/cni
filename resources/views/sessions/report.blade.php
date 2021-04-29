@@ -15,38 +15,100 @@
 
         </div>
 
-        <form id="filter_cabildos_report" method="post" action="">
+        <!-- Inicio de filtro postback para excel -->
+
+        <div class="d-none">
+            <form id="filter_cabildos_report">
+                @csrf
+                <div class="row mt-5">
+                    <div class="mb-3 col-3">
+                        <label for="" class="form-label"><b>Tema</b></label>
+                        <input type="text" class="form-control" id=""
+                            value="{{ isset($post['nombre_tema']) ? $post['nombre_tema'] : '' }}" name="nombre_tema">
+                    </div>
+                    <div class="mb-3 col-3">
+                        <label for="" class="form-label"><b>Departamento</b></label>
+                        <select class="form-select " name="dep_id">
+                            <option value="">Selecciona</option>
+                            @foreach ($departments as $i)
+                                <option value="{{ $i->id }}"
+                                    {{ isset($post['dep_id']) ? ($post['dep_id'] == $i->id ? 'selected' : '') : '' }}>
+                                    {{ $i->nombre }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3 col-3">
+                        <label for="" class="form-label"><b>Municipio</b></label>
+                        <select class="form-select " name="mun_id">
+                            <option value="">Selecciona</option>
+
+                            @foreach ($municipios as $i)
+                                <option value="{{ $i->id }}"
+                                    {{ isset($post['mun_id']) ? ($post['mun_id'] == $i->id ? 'selected' : '') : '' }}>
+                                    {{ $i->nombre }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3 col-3">
+                        <label for="" class="form-label"><b>Fecha</b></label>
+                        <input type="date" class="form-control" id=""
+                            value="{{ isset($post['fecha_realizacion']) ? $post['fecha_realizacion'] : '' }}"
+                            name="fecha_realizacion">
+                    </div>
+                    <div class="mb-3 col-3">
+                        <button class="btn-general btn">Buscar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Fin de filtro postback para excel -->
+
+        <form id="filter_cabildos_report_ajax">
             @csrf
             <div class="row mt-5">
                 <div class="mb-3 col-3">
                     <label for="" class="form-label"><b>Tema</b></label>
-                    <input type="text" class="form-control" id="" value="{{(isset($post['nombre_tema'])?$post['nombre_tema']:'')}}" name="nombre_tema">
+                    <input type="text" class="form-control" id=""
+                        value="{{ isset($post['nombre_tema']) ? $post['nombre_tema'] : '' }}" name="nombre_tema">
                 </div>
                 <div class="mb-3 col-3">
                     <label for="" class="form-label"><b>Departamento</b></label>
-                    <select class="form-control " name="dep_id">
-                        <option selected disabled></option>
+                    <select class="form-select " name="dep_id">
+                        <option value="">Selecciona</option>
                         @foreach ($departments as $i)
-                            <option value="{{ $i->id }}" {{(isset($post['dep_id'])?($post['dep_id']==$i->id?'selected':''):'')}}>{{ $i->nombre }}</option>
+                            <option value="{{ $i->id }}"
+                                {{ isset($post['dep_id']) ? ($post['dep_id'] == $i->id ? 'selected' : '') : '' }}>
+                                {{ $i->nombre }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="mb-3 col-3">
                     <label for="" class="form-label"><b>Municipio</b></label>
-                    <select class="form-control " name="mun_id">
-                        <option selected disabled></option>
+                    <select class="form-select " name="mun_id">
+                        <option value="">Selecciona</option>
 
                         @foreach ($municipios as $i)
-                            <option value="{{ $i->id }}"  {{(isset($post['mun_id'])?($post['mun_id']==$i->id?'selected':''):'')}} >{{ $i->nombre }}</option>
+                            <option value="{{ $i->id }}"
+                                {{ isset($post['mun_id']) ? ($post['mun_id'] == $i->id ? 'selected' : '') : '' }}>
+                                {{ $i->nombre }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="mb-3 col-3">
-                    <label for="" class="form-label"><b>Fecha</b></label>
-                    <input type="date" class="form-control" id="" value="{{(isset($post['fecha_realizacion'])?$post['fecha_realizacion']:'')}}" name="fecha_realizacion">
+                    <label for="" class="form-label"><b>Fecha desde</b></label>
+                    <input type="date" class="form-control" id=""
+                        {{-- value="{{ isset($post['fecha_realizacion']) ? $post['fecha_realizacion'] : '' }}" --}}
+                        name="fecha_desde">
                 </div>
                 <div class="mb-3 col-3">
-                    <button class="btn-general btn">Buscar</button>
+                    <label for="" class="form-label"><b>Fecha hasta</b></label>
+                    <input type="date" class="form-control" id=""
+                        {{-- value="{{ isset($post['fecha_realizacion']) ? $post['fecha_realizacion'] : '' }}" --}}
+                        name="fecha_hasta">
+                </div>
+                <div class="col-3 mt-4">
+                    <button type="button" class="btn btn-general_ajax btn_filtros_report_c">Buscar</button>
                 </div>
             </div>
         </form>
@@ -61,7 +123,7 @@
     </div>
 
     <div class="container table-responsive mt-5">
-        <table class="table table-bordered table_es">
+        <table class="table table-bordered table_es" id="table_cabildos">
             <thead>
                 <th>Tema</th>
                 <th>Descripción</th>
@@ -90,6 +152,7 @@
         }
 
     </style>
+
     <script>
         $(".btn_excel").click(function() {
             $('#filter_cabildos_report').attr('action', '/excel-cabildos')
@@ -99,6 +162,32 @@
             $('#filter_cabildos_report').attr('action', '/report-cabildos')
             $('#filter_cabildos_report').submit();
         });
+
+
+
+
+        $('body').on('click', '.btn_filtros_report_c', function() {
+            $.post(
+                "{{ route('report_cabildos') }}",
+                $('#filter_cabildos_report_ajax').serialize()
+            ).done(function(data) {
+                tabla(data)
+            })
+        })
+
+        function tabla(data) {
+            var table = $('#table_cabildos').DataTable();
+            $('#table_cabildos').DataTable().clear().draw();
+            $.each(data.cabildos, function(key, val) {
+                table.row.add([
+                    val.nombre_tema,
+                    val.description,
+                    val.dep_id,
+                    val.mun_id,
+                    val.fecha_realizacion,
+                ]).draw();
+            })
+        }
 
     </script>
 @endsection

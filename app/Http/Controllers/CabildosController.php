@@ -83,8 +83,6 @@ class CabildosController extends Controller
 
     public function list(Request $r)
     {
-
-
         $post = $r;
         $cabildo = CabildoAbierto::where('estado', 1)
             ->where(function ($query) use ($post) {
@@ -99,12 +97,12 @@ class CabildosController extends Controller
                         $query->orwhere('cabildo_abierto.dep_id', 'like', "%" . $post['dep_id'] . "%");
                 }
             })
-            ->where(function ($query) use ($post) {
-                if (isset($post['fecha_realizacion'])) {
-                    if (!empty($post['fecha_realizacion']))
-                        $query->orwhere('cabildo_abierto.fecha_realizacion', 'like', "%" . $post['fecha_realizacion'] . "%");
-                }
-            })
+            // ->where(function ($query) use ($post) {
+            //     if (isset($post['fecha_realizacion'])) {
+            //         if (!empty($post['fecha_realizacion']))
+            //             $query->orwhere('cabildo_abierto.fecha_realizacion', 'like', "%" . $post['fecha_realizacion'] . "%");
+            //     }
+            // })
             ->get();
         return view('sessions.list')
             ->with('municipios', Municipio::all())
@@ -255,9 +253,81 @@ class CabildosController extends Controller
             })
             ->get();
         return view('sessions.report')
-            ->with('departments', Departamento::all())
-            ->with('municipios', Municipio::all())
+            ->with('departments', Departamento::where('estado',1)->get())
+            ->with('municipios', Municipio::where('estado',1))
             ->with('cabildos', $cabildo)
             ->with('post', $r);
+    }
+
+    public function reportSessions_filtrado(Request $request)
+    {
+        // return response()->json(['msg' => $request->all()]);
+        $post = $request;
+        $cabildo = CabildoAbierto::where('estado', 1)
+            ->where(function ($query) use ($post) {
+                if (isset($post['nombre_tema'])) {
+                    if (!empty($post['nombre_tema']))
+                        $query->orwhere('cabildo_abierto.nombre_tema', 'like', "%" . $post['nombre_tema'] . "%");
+                }
+            })
+            ->where(function ($query) use ($post) {
+                if (isset($post['dep_id'])) {
+                    if (!empty($post['dep_id']))
+                        $query->orwhere('cabildo_abierto.dep_id', 'like', "%" . $post['dep_id'] . "%");
+                }
+            })
+            ->where(function ($query) use ($post) {
+                if (isset($post['mun_id'])) {
+                    if (!empty($post['mun_id']))
+                        $query->orwhere('cabildo_abierto.mun_id', 'like', "%" . $post['mun_id'] . "%");
+                }
+            })
+            // ->where(function ($query) use ($post) {
+            //     if (isset($post['fecha_realizacion'])) {
+            //         if (!empty($post['fecha_realizacion']))
+            //             $query->orwhere('cabildo_abierto.fecha_realizacion', 'like', "%" . $post['fecha_realizacion'] . "%");
+            //     }
+            // })
+            ->get();
+            $array = [];
+            $x = 0;
+            if(is_null($request->fecha_desde) && is_null($request->fecha_hasta)){
+
+            }
+            if(is_null($request->fecha_desde) && !is_null($request->fecha_hasta)){
+                foreach ($cabildo as $row) {
+                    if($request->fecha_hasta >= $row->fecha_realizacion){
+                        $array[$x] = $row;
+                        $x++;
+                    }
+                }
+                $cabildo = $array;
+            }
+            if(!is_null($request->fecha_desde) && is_null($request->fecha_hasta)){
+                foreach ($cabildo as $row) {
+                    if($request->fecha_desde <= $row->fecha_realizacion){
+                        $array[$x] = $row;
+                        $x++;
+                    }
+                }
+                $cabildo = $array;
+            }
+            if(!is_null($request->fecha_desde) && !is_null($request->fecha_hasta)){
+                foreach ($cabildo as $row) {
+                    if($request->fecha_desde <= $row->fecha_realizacion && $request->fecha_hasta >= $row->fecha_realizacion){
+                        $array[$x] = $row;
+                        $x++;
+                    }
+                }
+                $cabildo = $array;
+            }
+            return response()->json([
+                'cabildos' => $cabildo,
+                ]);
+        // return view('sessions.report')
+        //     ->with('departments', Departamento::all())
+        //     ->with('municipios', Municipio::all())
+        //     ->with('cabildos', $cabildo)
+        //     ->with('post', $r);
     }
 }

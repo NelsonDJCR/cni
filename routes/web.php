@@ -30,6 +30,7 @@ Route::post('/view-documents', [CabildosController::class,'viewDocuments']);
 Route::get('/uploads/{file}',[CabildosController::class,'downloadFile']);
 Route::get('/report-cabildos', [CabildosController::class,'reportSessions']);
 Route::post('/report-cabildos', [CabildosController::class,'reportSessions']);
+Route::post('/report-cabildos_a', [CabildosController::class,'reportSessions_filtrado'])->name('report_cabildos');
 Route::get('/list-cabildos',[CabildosController::class,'list']);
 
 
