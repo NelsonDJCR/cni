@@ -78,7 +78,7 @@
         </table>
     </div>
     @include('modals.download')
-    
+
     <script>
         $(".btn_search").click(function() {
             $("#filter_list").attr('action','/list-cabildos')
@@ -99,7 +99,7 @@
                         .append(
                             `<div class="row">
                                 <div class="col-11">
-                                    <input type="text" value="${val.nombre}" disabled class="form-control mb-3" />
+                                    <input type="text" value="Documento ${Key + 1}" disabled class="form-control mb-3" />
                                 </div>
                                 <div class="aling_btn_options col-1">
                                     <a href="${val.nombre}" download="x.pdf" type="button" class="btn download_parameterization">
