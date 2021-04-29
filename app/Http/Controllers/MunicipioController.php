@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\DB;
 
 class MunicipioController extends Controller
 {
+
+
+    public function depMunicipio(Request $r)
+	{
+        $municipios = Municipio::where('dep_id',$r->id)->where('estado',1)->get();
+        return response()->json(['municipios' => $municipios]);
+	}
+    
     /**
      * Display a listing of the resource.
      *

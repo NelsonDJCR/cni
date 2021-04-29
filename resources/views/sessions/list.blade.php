@@ -74,8 +74,8 @@
                         </td>
                         <td>{{ $i->nombre_tema }}</td>
                         <td>{{ $i->description }}</td>
-                        <td>{{ $i->dep_id }}</td>
-                        <td>{{ $i->mun_id }}</td>
+                        <td>{{ $i->departamento->nombre }}</td>
+                        <td>{{ $i->municipio->nombre }}</td>
                         <td>{{ $i->fecha_realizacion }}</td>
                     </tr>
                 @endforeach
@@ -107,7 +107,7 @@
                                     <input type="text" value="${val.nombre}" disabled class="form-control mb-3" />
                                 </div>
                                 <div class="aling_btn_options col-1">
-                                    <a href="${val.nombre}" download="x.pdf" type="button" class="btn download_parameterization">
+                                    <a href="${val.ruta}" download="ekekek" type="button" class="btn download_parameterization">
                                         <i class="fas fa-download"></i>
                                     </a>
                                 </div>

@@ -60,14 +60,15 @@ class CabildosController extends Controller
         $type =  $r->type_file;
         foreach ($r->file as $i) {
             $path =  $i->store('uploads', 'public');
-            $r = new Documento();
-            $r->nombre = $path;
-            $r->id_tipo_documento = $type;
-            $r->save();
+            $doc = new Documento();
+            $doc->nombre = $i->getClientOriginalName();
+            $doc->ruta = $path;
+            $doc->id_tipo_documento = $type;
+            $doc->save();
 
             $x = new CabildoSoporte();
             $x->id_cabildo = $e->id;
-            $x->id_documento = $r->id;
+            $x->id_documento = $doc->id;
             $x->save();
         }
 
@@ -174,16 +175,15 @@ class CabildosController extends Controller
         if (isset($r->file)) {
             foreach ($r->file as $i) {
                 $path =  $i->store('uploads', 'public');
-
-                $r = new Documento();
-                $r->nombre = $path;
-                $r->id_tipo_documento = $type;
-                $r->save();
-
+                $doc = new Documento();
+                $doc->nombre = $i->getClientOriginalName();
+                $doc->ruta = $path;
+                $doc->id_tipo_documento = $type;
+                $doc->save();
 
                 $x = new CabildoSoporte();
-                $x->id_cabildo = $record;
-                $x->id_documento = $r->id;
+                $x->id_cabildo = $e->id;
+                $x->id_documento = $doc->id;
                 $x->save();
             }
         }
