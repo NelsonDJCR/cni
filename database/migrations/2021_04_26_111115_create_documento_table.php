@@ -18,6 +18,7 @@ class CreateDocumentoTable extends Migration
             $table->foreignId('id_subserie')->nullable()->constrained('subserie')->onDelete('restrict');
             $table->foreignId('id_tipo_documento')->nullable()->constrained('tipo_documento')->onDelete('restrict');
             $table->string('nombre')->nullable();
+            $table->string('ruta')->nullable();
             $table->integer('estado')->default(1); // 0: inactivo, 1: activo, 2: pendiente
             $table->timestamps();
         });
