@@ -58,6 +58,9 @@ Route::post('/update_municipio',[MunicipioController::class, 'update'])->name('m
 Route::post('buscar-municipio',[MunicipioController::class,'buscar_municipio'])->name('buscar_municipio');
 
 
+Route::post('/dep_municipio',[MunicipioController::class,'depMunicipio']);
+
+
 //--------------------------------------------------------------------------------------
 // Rutas para departamentos
 //--------------------------------------------------------------------------------------

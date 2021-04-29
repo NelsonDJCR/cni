@@ -14,7 +14,7 @@
 
                     <div class="row ">
                         <div class="mb-3 ">
-                            <label for="" class="form-label"><b>Tema</b></label>
+                            <label for="" class="form-label"><b>Tema *</b></label>
                             <input type="text" class="form-control" name="nombre_tema" id=""
                                 value="{{ $data->nombre_tema }}" aria-describedby="emailHelp">
                         </div>
@@ -22,15 +22,15 @@
                     </div>
                     <div class="row">
                         <div class="mb-3 ">
-                            <label for="" class="form-label"><b>Descripción</b></label>
+                            <label for="" class="form-label"><b>Descripción *</b></label>
                             <textarea class="form-control" placeholder="" id="" name="description"
                                 style="height: 150px">{{ $data->description }}</textarea>
                         </div>
                     </div>
                     <div class="row">
                         <div class="mb-3 ">
-                            <label for="" class="form-label"><b>Departamento</b></label>
-                            <select class="form-select" aria-label="Default select example" name="dep_id">
+                            <label for="" class="form-label"><b>Departamento *</b></label>
+                            <select class="form-select" aria-label="Default select example" name="dep_id" id="departamento">
                                 @foreach ($departament as $i)
                                     <option value="{{ $i->id }}" {{ $data->dep_id == $i->id ? 'selected' : '' }}>
                                         {{ $i->nombre }}</option>
@@ -40,8 +40,8 @@
                     </div>
                     <div class="row">
                         <div class="mb-3 ">
-                            <label for="" class="form-label"><b>Municipio</b></label>
-                            <select class="form-select" aria-label="Default select example" name="mun_id">
+                            <label for="" class="form-label"><b>Municipio *</b></label>
+                            <select class="form-select" aria-label="Default select example" name="mun_id" id="municipio">
                                 @foreach ($municipios as $i)
                                     <option value="{{ $i->id }}" {{ $data->mun_id == $i->id ? 'selected' : '' }}>
                                         {{ $i->nombre }}</option>
@@ -52,11 +52,8 @@
                     <div class="row">
                         <div class="mb-3 ">
 
-                            <label for="" class="form-label"><b>Fecha de agendamiento</b> </label>
+                            <label for="" class="form-label"><b>Fecha de agendamiento *</b> </label>
                             <div class="input-group">
-                                <span class="span">
-                                    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-                                </span>
                                 <input type="date" class="form-control" value="{{ $data->fecha_realizacion }}"
                                     name="fecha_realizacion" />
                             </div>
@@ -65,7 +62,7 @@
                 </div>
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
                     <div class="row ">
-                        <label for="" class="form-label"><b>Tipo de documento</b> </label>
+                        <label for="" class="form-label"><b>Tipo de documento *</b> </label>
                         <select class="form-select" aria-label="Default select example" name="type_file">
                             @foreach ($type_file as $i)
                                 <option value="{{ $i->id }}" {{ $type_document->id == $i->id ? 'selected' : '' }}>
@@ -74,7 +71,7 @@
                         </select>
                     </div>
                     <div class="row mt-3">
-                        <label for="" class="form-label"><b>Radicado CNE</b></label>
+                        <label for="" class="form-label"><b>Radicado CNE *</b></label>
                         <input type="text" class="form-control" value="{{ $data->radicado_CNE }}" id=""
                             name="radicado_CNE">
                     </div>
@@ -127,6 +124,29 @@
                 }
             })
             return false;
+        });
+
+        $('#departamento').change(function() {
+            var form_data = new FormData();
+            form_data.append('id', $(this).val());
+            form_data.append('_token', "{{ csrf_token() }}");
+            $.ajax({
+                type: 'POST',
+                url: '/dep_municipio',
+                dataType: "json",
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    $('#municipio *').remove();
+                    let options = '<option value="">Seleccione ...</option>';
+                    $.each(data.municipios, function(key, val) {
+                        options += `<option value="${val.id}">${val.nombre}</option>`;
+                    })
+                    $('#municipio').append(options);
+                }
+            })
         });
 
     </script>

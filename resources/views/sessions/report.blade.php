@@ -56,7 +56,7 @@
         <div class="row justify-content-end">
             {{-- {{ url('/excel-cabildos') }} --}}
             <a href="javascript:" class="btn btn-success w-100px btn_excel"> <i class="fas fa-file-excel"></i></a>
-            <a href="javascript:" class="btn btn-danger w-100px"><i class="fas fa-file-pdf"></i></a>
+            {{-- <a href="javascript:" class="btn btn-danger w-100px"><i class="fas fa-file-pdf"></i></a> --}}
         </div>
     </div>
 
@@ -74,8 +74,8 @@
                     <tr>
                         <td>{{ $i->nombre_tema }}</td>
                         <td>{{ $i->description }}</td>
-                        <td>{{ $i->dep_id }}</td>
-                        <td>{{ $i->mun_id }}</td>
+                        <td>{{ $i->departamento->nombre }}</td>
+                        <td>{{ $i->municipio->nombre }}</td>
                         <td>{{ $i->fecha_realizacion }}</td>
                     </tr>
                 @endforeach

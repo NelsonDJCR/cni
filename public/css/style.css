@@ -164,15 +164,6 @@ h2 {
     height: 35px;
     width: 35px;
 }
-input[type="date"]::-webkit-calendar-picker-indicator {
-    /* background: none; */
-    z-index: 5;
-    margin-left: -15px;
-    background: none;
-    padding: 5px;
-    position: absolute;
-    width: 100%;
-}
 ::-webkit-datetime-edit-year-field:not([aria-valuenow]),
 ::-webkit-datetime-edit-month-field:not([aria-valuenow]),
 ::-webkit-datetime-edit-day-field:not([aria-valuenow]) {
