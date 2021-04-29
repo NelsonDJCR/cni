@@ -5,11 +5,11 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Tipos de documento</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Tipos de archivo</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          ¿Estás seguro de eliminar el tipo de documento?
+          ¿Estás seguro de eliminar el tipo de archivo?
         </div>
         <form id="eliminar_tipoDocumento">
             @csrf

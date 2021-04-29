@@ -3,7 +3,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Editar tipo de documento</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Editar tipo de archivo</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -11,7 +11,7 @@
                     @csrf
                     <input id="id_tipoDocumento_edit" class="validar" type="hidden" name="tipoDocumento_id" value="">
                     <div class="mb-3">
-                        <label for="nombre_tipoDocumento_edit" class="col-form-label">Nombre de documento</label>
+                        <label for="nombre_tipoDocumento_edit" class="col-form-label">Nombre de archivo</label>
                         <input type="text" class="form-control validar" id="nombre_tipoDocumento_edit"
                             name="nombre_edit">
                     </div>
