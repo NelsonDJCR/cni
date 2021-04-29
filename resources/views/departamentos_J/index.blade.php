@@ -97,7 +97,7 @@
 
         $('body').on('click', '.modal_crear_departamento', function() {
             $('#nombre').val('')
-            $('#seleccionar_crear').selected('selecciona')
+            // $('#seleccionar_crear').selected('selecciona')
             $('#modal_crear_departamento').modal('show')
         })
 
